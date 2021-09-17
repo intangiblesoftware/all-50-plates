@@ -6,11 +6,23 @@
 //
 
 import Foundation
-import Combine
 
 class StatePlateStore: ObservableObject {
     // The array of all the statePlates
-    @Published var statePlates: [StatePlate] = []
+    private var statePlates: [StatePlate] = []
+    
+    // Gonna provide a copy of statePlates that's filtered or not
+    var publishedStatePlates: [StatePlate] {
+        get {
+            if isFiltered {
+                return statePlates.filter { statePlate in
+                    !statePlate.found
+                }
+            } else {
+                return statePlates
+            }
+        }
+    }
     
     // Keeping track of whether the list should be filtered.
     // Don't know who else should be keeping track of this.
@@ -18,7 +30,7 @@ class StatePlateStore: ObservableObject {
     @Published var isFiltered: Bool = false
             
     init() {
-        // gp get StatePlates from some plist or another
+        // Get StatePlates from some plist or another
         // On first launch, will be a resource
         // On subsequent launches will be in user's documents directory
         // So need to check there first, and if nothing is there, go get from resource
@@ -28,16 +40,16 @@ class StatePlateStore: ObservableObject {
             statePlates = self.arrayOfStatePlates(from: pathToStates)
             statePlates.sort { plate1, plate2 in
                 plate1.state < plate2.state
-            }            
+            }
         } else {
             print("Path to states.plist didn't exist anywhere.")
         }
     }
     
-    func statePlateUpdated() {
-        objectWillChange.send()
-    }
-    
+//    func statePlateUpdated() {
+//        objectWillChange.send()
+//    }
+//    
     // Returns a path to either the saved states list in the documents directory or to the one in the main bundle
     // Or if all goes horribly wrong, returns nil.
     private func pathToStates() -> String? {
