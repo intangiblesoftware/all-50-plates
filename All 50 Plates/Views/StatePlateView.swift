@@ -6,11 +6,10 @@
 //
 
 import SwiftUI
-import Combine
 
 struct StatePlateView: View {
     // The statePlate to display
-    var statePlate: StatePlate
+    @ObservedObject var statePlate: StatePlate
     
     var body: some View {
         VStack {
@@ -49,17 +48,7 @@ struct StatePlateView: View {
             .padding(.horizontal)
             .onTapGesture {
                 withAnimation {
-//                    statePlate.found.toggle()
-                    if statePlate.found {
-                       let dateFound = Date()
-                       let dateFormatter = DateFormatter()
-                       dateFormatter.dateStyle = .long
-                       dateFormatter.timeStyle = .none
-                       dateFormatter.locale = .current
-                        statePlate.date = dateFormatter.string(from: dateFound)
-                   } else {
-                    statePlate.date = ""
-                   }
+                    statePlate.toggleFound()
                 }
             }
         }
