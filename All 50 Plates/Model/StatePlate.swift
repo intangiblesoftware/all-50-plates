@@ -8,10 +8,17 @@
 import Foundation
 import Combine
 
-class StatePlate: Hashable, Codable, CustomDebugStringConvertible, ObservableObject {
+class StatePlate: Hashable, Codable, CustomDebugStringConvertible, ObservableObject, Identifiable {
 
     let state: String
     let plate: String
+    
+    // Conform to Identifiable. I want to use state as my ID. 
+    var id: String {
+        get {
+            return state
+        }
+    }
     
     @Published var date: String?
     @Published var found: Bool
@@ -65,7 +72,7 @@ class StatePlate: Hashable, Codable, CustomDebugStringConvertible, ObservableObj
     }
     
     // Tells this object to toggle its found state
-    // Want to do this, because we also want to date-stamp when that happened.
+    // Want to do this, because we also want to date stamp when that happened.
     // Or remove the date stamp when they untoggle it. 
     func toggleFound() {
         found.toggle()

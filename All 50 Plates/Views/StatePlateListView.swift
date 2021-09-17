@@ -14,7 +14,7 @@ struct StatePlateListView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(platesToShow(isFiltered: statePlateStore.isFiltered), id:\.self) { statePlate in
+                ForEach(statePlateStore.publishedStatePlates) { statePlate in
                     StatePlateView(statePlate: statePlate)
                 }
             }.animation(.default)
@@ -42,16 +42,6 @@ struct StatePlateListView: View {
                     })
                 }
             }
-        }
-    }
-    
-    func platesToShow(isFiltered: Bool) -> [StatePlate] {
-        if isFiltered {
-            return statePlateStore.statePlates.filter { plate in
-                !plate.found
-            }
-        } else {
-            return statePlateStore.statePlates
         }
     }
 }
