@@ -11,13 +11,13 @@ class StatePlateStore: ObservableObject {
     // The array of all the statePlates
     private var statePlates: [StatePlate] = []
     
+    let notificationCenter = NotificationCenter.default
+    
     // Gonna provide a copy of statePlates that's filtered or not
     var publishedStatePlates: [StatePlate] {
         get {
             if isFiltered {
-                return statePlates.filter { statePlate in
-                    !statePlate.found
-                }
+                return statePlates.filter { !$0.found }
             } else {
                 return statePlates
             }
@@ -44,12 +44,35 @@ class StatePlateStore: ObservableObject {
         } else {
             print("Path to states.plist didn't exist anywhere.")
         }
+        
+        // Register to receive notifications
+        notificationCenter.addObserver(self, selector: #selector(statePlateUpdated(_ : )), name: .statePlateUpdated, object: nil)
     }
     
-//    func statePlateUpdated() {
-//        objectWillChange.send()
-//    }
-//    
+    // We need to be told when a statePlate was updated so we know whether to re-filter our array
+    @objc func statePlateUpdated(_ notification: Notification) {
+        print("statePlateUpdated from notification")
+        // First, let's see if we have userInfo
+        if let userInfo = notification.userInfo as? [String : String] {
+            print("got userInfo: \(userInfo)")
+            
+            // Now, let's find a matching plate in the array of StatePlates
+            if let plateToUpdate = statePlates.first(where: { statePlate in
+                statePlate.state == userInfo["state"] && statePlate.plate == userInfo["plate"]
+            }) {
+                print("Found the plate to update: \(plateToUpdate)")
+                // OK, we found a match, now toggle that match
+                plateToUpdate.found.toggle()
+                print("Done!")
+            }
+        }
+        objectWillChange.send()
+    }
+    
+    func toggleFilter() {
+        isFiltered.toggle()
+    }
+    
     // Returns a path to either the saved states list in the documents directory or to the one in the main bundle
     // Or if all goes horribly wrong, returns nil.
     private func pathToStates() -> String? {
@@ -81,4 +104,8 @@ class StatePlateStore: ObservableObject {
         let errorState = StatePlate(state: "No state data found", plate: "", found: false, date: "")
         return [errorState]
     }
+}
+
+extension Notification.Name {
+    static let statePlateUpdated = Notification.Name("statePlateUpdated")
 }

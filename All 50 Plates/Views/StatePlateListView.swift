@@ -25,7 +25,7 @@ struct StatePlateListView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        statePlateStore.isFiltered.toggle()
+                        statePlateStore.toggleFilter()
                     }, label: {
                         if statePlateStore.isFiltered {
                             Image(systemName: "line.horizontal.3.decrease.circle.fill")
@@ -33,13 +33,6 @@ struct StatePlateListView: View {
                             Image(systemName: "line.horizontal.3.decrease.circle")
                         }
                     }).font(.title)
-                }
-                ToolbarItemGroup(placement: .bottomBar) {
-                    Button("Reset", action: {})
-                    Spacer()
-                    Button("Filter", action: {
-                        statePlateStore.isFiltered.toggle()
-                    })
                 }
             }
         }
