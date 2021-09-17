@@ -8,18 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		38FB93FE26E429BC0057F367 /* All_50_PlatesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB93FD26E429BC0057F367 /* All_50_PlatesApp.swift */; };
-		38FB940026E429BC0057F367 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB93FF26E429BC0057F367 /* ContentView.swift */; };
+		38FB940026E429BC0057F367 /* StatePlateListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB93FF26E429BC0057F367 /* StatePlateListView.swift */; };
 		38FB940226E429BD0057F367 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38FB940126E429BD0057F367 /* Assets.xcassets */; };
 		38FB940526E429BD0057F367 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38FB940426E429BD0057F367 /* Preview Assets.xcassets */; };
+		38FB940D26E429FF0057F367 /* states.plist in Resources */ = {isa = PBXBuildFile; fileRef = 38FB940C26E429FF0057F367 /* states.plist */; };
+		38FB940F26E434000057F367 /* StatePlate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB940E26E434000057F367 /* StatePlate.swift */; };
+		38FB941926E57BFF0057F367 /* StatePlateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB941826E57BFF0057F367 /* StatePlateStore.swift */; };
+		38FB941B26E588620057F367 /* StatePlateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB941A26E588620057F367 /* StatePlateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		38FB93FA26E429BC0057F367 /* All 50 Plates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "All 50 Plates.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		38FB93FD26E429BC0057F367 /* All_50_PlatesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = All_50_PlatesApp.swift; sourceTree = "<group>"; };
-		38FB93FF26E429BC0057F367 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		38FB93FF26E429BC0057F367 /* StatePlateListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatePlateListView.swift; sourceTree = "<group>"; };
 		38FB940126E429BD0057F367 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38FB940426E429BD0057F367 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		38FB940626E429BD0057F367 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38FB940C26E429FF0057F367 /* states.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = states.plist; sourceTree = "<group>"; };
+		38FB940E26E434000057F367 /* StatePlate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatePlate.swift; sourceTree = "<group>"; };
+		38FB941826E57BFF0057F367 /* StatePlateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatePlateStore.swift; sourceTree = "<group>"; };
+		38FB941A26E588620057F367 /* StatePlateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatePlateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,10 +60,10 @@
 		38FB93FC26E429BC0057F367 /* All 50 Plates */ = {
 			isa = PBXGroup;
 			children = (
-				38FB93FD26E429BC0057F367 /* All_50_PlatesApp.swift */,
-				38FB93FF26E429BC0057F367 /* ContentView.swift */,
-				38FB940126E429BD0057F367 /* Assets.xcassets */,
-				38FB940626E429BD0057F367 /* Info.plist */,
+				38FB941026E435980057F367 /* App */,
+				38FB941326E436010057F367 /* Resources */,
+				38FB941226E435E10057F367 /* Views */,
+				38FB941126E435B40057F367 /* Model */,
 				38FB940326E429BD0057F367 /* Preview Content */,
 			);
 			path = "All 50 Plates";
@@ -67,6 +75,42 @@
 				38FB940426E429BD0057F367 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		38FB941026E435980057F367 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				38FB93FD26E429BC0057F367 /* All_50_PlatesApp.swift */,
+				38FB940626E429BD0057F367 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		38FB941126E435B40057F367 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				38FB940E26E434000057F367 /* StatePlate.swift */,
+				38FB941826E57BFF0057F367 /* StatePlateStore.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		38FB941226E435E10057F367 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				38FB93FF26E429BC0057F367 /* StatePlateListView.swift */,
+				38FB941A26E588620057F367 /* StatePlateView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		38FB941326E436010057F367 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				38FB940126E429BD0057F367 /* Assets.xcassets */,
+				38FB940C26E429FF0057F367 /* states.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,6 +172,7 @@
 			files = (
 				38FB940526E429BD0057F367 /* Preview Assets.xcassets in Resources */,
 				38FB940226E429BD0057F367 /* Assets.xcassets in Resources */,
+				38FB940D26E429FF0057F367 /* states.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +183,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38FB940026E429BC0057F367 /* ContentView.swift in Sources */,
+				38FB941B26E588620057F367 /* StatePlateView.swift in Sources */,
+				38FB940026E429BC0057F367 /* StatePlateListView.swift in Sources */,
+				38FB940F26E434000057F367 /* StatePlate.swift in Sources */,
 				38FB93FE26E429BC0057F367 /* All_50_PlatesApp.swift in Sources */,
+				38FB941926E57BFF0057F367 /* StatePlateStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,7 +319,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"All 50 Plates/Preview Content\"";
 				DEVELOPMENT_TEAM = CRBB3K29X3;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "All 50 Plates/Info.plist";
+				INFOPLIST_FILE = "All 50 Plates/App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -293,7 +341,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"All 50 Plates/Preview Content\"";
 				DEVELOPMENT_TEAM = CRBB3K29X3;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "All 50 Plates/Info.plist";
+				INFOPLIST_FILE = "All 50 Plates/App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

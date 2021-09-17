@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+<dict><key>state</key><string>Alabama</string><key>plate</key><string>AL</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Alaska</string><key>plate</key><string>AK</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Arizona</string><key>plate</key><string>AZ</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Arkansas</string><key>plate</key><string>AR</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>California</string><key>plate</key><string>CA</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Colorado</string><key>plate</key><string>CO</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Connecticut</string><key>plate</key><string>CT</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Delaware</string><key>plate</key><string>DE</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Florida</string><key>plate</key><string>FL</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Georgia</string><key>plate</key><string>GA</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Hawaii</string><key>plate</key><string>HI</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Idaho</string><key>plate</key><string>ID</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Illinois</string><key>plate</key><string>IL</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Indiana</string><key>plate</key><string>IN</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Iowa</string><key>plate</key><string>IA</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Kansas</string><key>plate</key><string>KS</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Kentucky</string><key>plate</key><string>KY</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Louisiana</string><key>plate</key><string>LA</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Maine</string><key>plate</key><string>ME</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Maryland</string><key>plate</key><string>MD</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Massachusetts</string><key>plate</key><string>MA</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Michigan</string><key>plate</key><string>MI</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Minnesota</string><key>plate</key><string>MN</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Mississippi</string><key>plate</key><string>MS</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Missouri</string><key>plate</key><string>MO</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Montana</string><key>plate</key><string>MT</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Nebraska</string><key>plate</key><string>NE</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Nevada</string><key>plate</key><string>NV</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>New Hampshire</string><key>plate</key><string>NH</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>New Jersey</string><key>plate</key><string>NJ</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>New Mexico</string><key>plate</key><string>NM</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>New York</string><key>plate</key><string>NY</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>North Carolina</string><key>plate</key><string>NC</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>North Dakota</string><key>plate</key><string>ND</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Ohio</string><key>plate</key><string>OH</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Oklahoma</string><key>plate</key><string>OK</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Oregon</string><key>plate</key><string>OR</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Pennsylvania</string><key>plate</key><string>PA</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Rhode Island</string><key>plate</key><string>RI</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>South Carolina</string><key>plate</key><string>SC</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>South Dakota</string><key>plate</key><string>SD</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Tennessee</string><key>plate</key><string>TN</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Texas</string><key>plate</key><string>TX</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Utah</string><key>plate</key><string>UT</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Vermont</string><key>plate</key><string>VT</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Virginia</string><key>plate</key><string>VA</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Washington</string><key>plate</key><string>WA</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Washington DC</string><key>plate</key><string>DC</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>West Virginia</string><key>plate</key><string>WV</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Wisconsin</string><key>plate</key><string>WI</string><key>date</key><string></string><key>found</key><false/></dict>
+<dict><key>state</key><string>Wyoming</string><key>plate</key><string>WY</string><key>date</key><string></string><key>found</key><false/></dict></array>
+</plist>
