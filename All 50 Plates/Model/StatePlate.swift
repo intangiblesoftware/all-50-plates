@@ -8,13 +8,13 @@
 import Foundation
 import Combine
 
-struct StatePlate: Hashable, Codable, CustomDebugStringConvertible {
+class StatePlate: Hashable, Codable, CustomDebugStringConvertible, ObservableObject {
 
     let state: String
     let plate: String
     
-    var date: String?
-    var found: Bool
+    @Published var date: String?
+    @Published var found: Bool
     
     // Debug description
     var debugDescription: String {
@@ -36,7 +36,7 @@ struct StatePlate: Hashable, Codable, CustomDebugStringConvertible {
     }
     
     // Codable initializers
-    init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         state = try values.decode(String.self, forKey: .state)
         plate = try values.decode(String.self, forKey: .plate)
@@ -64,9 +64,10 @@ struct StatePlate: Hashable, Codable, CustomDebugStringConvertible {
         hasher.combine(plate)
     }
     
-    /*
     // Tells this object to toggle its found state
-    func toggle() {
+    // Want to do this, because we also want to date-stamp when that happened.
+    // Or remove the date stamp when they untoggle it. 
+    func toggleFound() {
         found.toggle()
         if found {
            let dateFound = Date()
@@ -79,5 +80,4 @@ struct StatePlate: Hashable, Codable, CustomDebugStringConvertible {
            date = ""
        }
     }
-     */
 }
