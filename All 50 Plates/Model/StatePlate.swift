@@ -6,12 +6,14 @@
 //
 
 import Foundation
-import Combine
 
 class StatePlate: Hashable, Codable, CustomDebugStringConvertible, ObservableObject, Identifiable {
-
+    
     let state: String
     let plate: String
+    
+    // We want to post notifications every time we change
+    let notificationCenter = NotificationCenter.default
     
     // Conform to Identifiable. I want to use state as my ID. 
     var id: String {
@@ -21,13 +23,27 @@ class StatePlate: Hashable, Codable, CustomDebugStringConvertible, ObservableObj
     }
     
     @Published var date: String?
-    @Published var found: Bool
+    @Published var found: Bool {
+        // observing when the value changes and updating other properties as needed.
+        didSet {
+            if found {
+                let dateFound = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = .long
+                dateFormatter.timeStyle = .none
+                dateFormatter.locale = .current
+                date = dateFormatter.string(from: dateFound)
+            } else {
+                date = ""
+            }
+        }
+    }
     
     // Debug description
     var debugDescription: String {
         return "[State: \(state), Plate: \(plate), Date: \(date ?? "Not set"), Found: \(found)]\n"
     }
-        
+    
     enum CodingKeys: String, CodingKey {
         case state
         case plate
@@ -41,7 +57,7 @@ class StatePlate: Hashable, Codable, CustomDebugStringConvertible, ObservableObj
         self.date = date
         self.found = found
     }
-    
+        
     // Codable initializers
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -71,20 +87,7 @@ class StatePlate: Hashable, Codable, CustomDebugStringConvertible, ObservableObj
         hasher.combine(plate)
     }
     
-    // Tells this object to toggle its found state
-    // Want to do this, because we also want to date stamp when that happened.
-    // Or remove the date stamp when they untoggle it. 
-    func toggleFound() {
-        found.toggle()
-        if found {
-           let dateFound = Date()
-           let dateFormatter = DateFormatter()
-           dateFormatter.dateStyle = .long
-           dateFormatter.timeStyle = .none
-           dateFormatter.locale = .current
-           date = dateFormatter.string(from: dateFound)
-       } else {
-           date = ""
-       }
+    func toUserInfo() -> [String: String] {
+        return ["state": self.state, "plate": self.plate]
     }
 }

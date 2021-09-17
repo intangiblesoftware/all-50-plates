@@ -11,6 +11,8 @@ struct StatePlateView: View {
     // The statePlate to display
     @ObservedObject var statePlate: StatePlate
     
+    let notificationCenter = NotificationCenter.default
+    
     var body: some View {
         VStack {
             HStack {
@@ -48,7 +50,8 @@ struct StatePlateView: View {
             .padding(.horizontal)
             .onTapGesture {
                 withAnimation {
-                    statePlate.toggleFound()
+                    statePlate.found.toggle()
+                    notificationCenter.post(name: .statePlateUpdated, object: nil, userInfo: statePlate.toUserInfo())
                 }
             }
         }
