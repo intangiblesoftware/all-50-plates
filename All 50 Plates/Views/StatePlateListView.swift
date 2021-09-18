@@ -23,7 +23,9 @@ struct StatePlateListView: View {
             .navigationTitle(Text("All 50 Plates"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Reset", action: {})
+                    Button("Reset", action: {
+                        statePlateStore.reset()
+                    })
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
