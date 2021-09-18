@@ -10,8 +10,8 @@ import SwiftUI
 struct StatePlateListView: View {
     // I'm not entirely sure why this is a StateObject instead of an ObservedObject.
     // Did this based on randome StackOverflow post I found. 
-    @StateObject var statePlateStore: StatePlateStore
-
+    @ObservedObject var statePlateStore: StatePlateStore
+    
     var body: some View {
 
         NavigationView {

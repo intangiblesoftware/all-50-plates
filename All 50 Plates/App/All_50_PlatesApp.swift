@@ -11,10 +11,13 @@ import UIKit
 @main
 struct All_50_PlatesApp: App {
     @Environment (\.scenePhase) var scenePhase
-        
+    
+    // Create the statePlate store and pass it along to the list view. 
+    @StateObject var statePlateStore: StatePlateStore = StatePlateStore()
+
     var body: some Scene {
         WindowGroup {
-            StatePlateListView(statePlateStore: StatePlateStore())
+            StatePlateListView(statePlateStore: statePlateStore)
         }
         .onChange(of: scenePhase) { newPhase in
             switch newPhase {
@@ -26,7 +29,7 @@ struct All_50_PlatesApp: App {
                 break
             case .inactive:
                 // However, here, I want to write any changes to the plist
-                print("I'm a couch potato.")
+                statePlateStore.save()
             default:
                 print("Wow, some new scenePhase was introduced. Not sure what to do here now...")
             }
