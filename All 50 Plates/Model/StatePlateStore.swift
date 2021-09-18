@@ -59,6 +59,18 @@ class StatePlateStore: ObservableObject {
         objectWillChange.send()
     }
     
+    func reset() {
+        // Resets all StatePlates to not found
+        statePlates.forEach { statePlate in
+            if statePlate.found {
+                statePlate.found = false
+                statePlate.date = ""
+            }
+            isFiltered = false
+//            objectWillChange.send()
+        }
+    }
+    
     // Returns a path to either the saved states list in the documents directory or to the one in the main bundle
     // Or if all goes horribly wrong, returns nil.
     private func pathToStates() -> String? {
