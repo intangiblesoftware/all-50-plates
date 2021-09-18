@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
-import Combine
 
 struct StatePlateListView: View {
-    @ObservedObject var statePlateStore: StatePlateStore
-    
+    // I'm not entirely sure why this is a StateObject instead of an ObservedObject.
+    // Did this based on randome StackOverflow post I found. 
+    @StateObject var statePlateStore: StatePlateStore
+
     var body: some View {
+
         NavigationView {
             List {
                 ForEach(statePlateStore.publishedStatePlates) { statePlate in
@@ -25,7 +27,7 @@ struct StatePlateListView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        statePlateStore.toggleFilter()
+                        statePlateStore.isFiltered.toggle()
                     }, label: {
                         if statePlateStore.isFiltered {
                             Image(systemName: "line.horizontal.3.decrease.circle.fill")

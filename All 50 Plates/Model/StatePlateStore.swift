@@ -41,6 +41,11 @@ class StatePlateStore: ObservableObject {
             statePlates.sort { plate1, plate2 in
                 plate1.state < plate2.state
             }
+            if isFiltered {
+                print("getting filtered list of stateplates")
+                statePlates = statePlates.filter { !$0.found }
+            }
+
         } else {
             print("Path to states.plist didn't exist anywhere.")
         }
@@ -51,26 +56,7 @@ class StatePlateStore: ObservableObject {
     
     // We need to be told when a statePlate was updated so we know whether to re-filter our array
     @objc func statePlateUpdated(_ notification: Notification) {
-        print("statePlateUpdated from notification")
-        // First, let's see if we have userInfo
-        if let userInfo = notification.userInfo as? [String : String] {
-            print("got userInfo: \(userInfo)")
-            
-            // Now, let's find a matching plate in the array of StatePlates
-            if let plateToUpdate = statePlates.first(where: { statePlate in
-                statePlate.state == userInfo["state"] && statePlate.plate == userInfo["plate"]
-            }) {
-                print("Found the plate to update: \(plateToUpdate)")
-                // OK, we found a match, now toggle that match
-                plateToUpdate.found.toggle()
-                print("Done!")
-            }
-        }
         objectWillChange.send()
-    }
-    
-    func toggleFilter() {
-        isFiltered.toggle()
     }
     
     // Returns a path to either the saved states list in the documents directory or to the one in the main bundle
