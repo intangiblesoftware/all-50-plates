@@ -11,10 +11,7 @@ class StatePlate: Hashable, Codable, CustomDebugStringConvertible, ObservableObj
     
     let state: String
     let plate: String
-    
-    // We want to post notifications every time we change
-    let notificationCenter = NotificationCenter.default
-    
+        
     // Conform to Identifiable. I want to use state as my ID. 
     var id: String {
         get {
@@ -85,9 +82,5 @@ class StatePlate: Hashable, Codable, CustomDebugStringConvertible, ObservableObj
     func hash(into hasher: inout Hasher) {
         hasher.combine(state)
         hasher.combine(plate)
-    }
-    
-    func toUserInfo() -> [String: String] {
-        return ["state": self.state, "plate": self.plate]
     }
 }

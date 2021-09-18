@@ -51,7 +51,7 @@ struct StatePlateView: View {
             .onTapGesture {
                 withAnimation {
                     statePlate.found.toggle()
-                    notificationCenter.post(name: .statePlateUpdated, object: nil, userInfo: statePlate.toUserInfo())
+                    notificationCenter.post(name: .statePlateUpdated, object: nil)
                 }
             }
         }
