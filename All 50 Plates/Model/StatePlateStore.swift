@@ -27,22 +27,23 @@ class StatePlateStore: ObservableObject {
     // Keeping track of whether the list should be filtered.
     // Don't know who else should be keeping track of this.
     // Eventually, I have to get this initializing from UserDefaults
-    @Published var isFiltered: Bool = false
+    @Published var isFiltered: Bool {
+        didSet {
+            UserDefaults.standard.setValue(isFiltered, forKey: "listIsFiltered")
+        }
+    }
     
     init() {
         // Get StatePlates from some plist or another
         // On first launch, will be a resource
         // On subsequent launches will be in user's documents directory
         // So need to check there first, and if nothing is there, go get from resource
-        
+        isFiltered = UserDefaults.standard.value(forKey: "listIsFiltered") as? Bool ?? false
+
         // Got the file path, now read it as xml
         statePlates = self.arrayOfStatePlates()
         statePlates.sort { plate1, plate2 in
             plate1.state < plate2.state
-        }
-        if isFiltered {
-            print("getting filtered list of stateplates")
-            statePlates = statePlates.filter { !$0.found }
         }
         
         // Register to receive notifications
