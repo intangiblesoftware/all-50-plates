@@ -27,13 +27,13 @@ class StatePlateStore: ObservableObject {
     // Storing filtered state in user defaults so I can restore on launch
     @Published var isFiltered: Bool {
         didSet {
-            UserDefaults.standard.setValue(isFiltered, forKey: "listIsFiltered")
+            UserDefaults.standard.setValue(isFiltered, forKey: Key.UserDefaults.listIsFiltered)
         }
     }
     
     init() {
         // Get filtered state from user defaults
-        isFiltered = UserDefaults.standard.value(forKey: "listIsFiltered") as? Bool ?? false
+        isFiltered = UserDefaults.standard.value(forKey: Key.UserDefaults.listIsFiltered) as? Bool ?? false
         
         // Get StatePlates from some plist or another
         statePlates = self.arrayOfStatePlates()
@@ -113,7 +113,7 @@ class StatePlateStore: ObservableObject {
     // Returns the path to the states.plist in the app's document directory
     func pathToDocuments() -> String? {
         if let documentsDirectoryURL = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first {
-            let savedFileURL = documentsDirectoryURL.appendingPathComponent("states.plist")
+            let savedFileURL = documentsDirectoryURL.appendingPathComponent(Key.ResourceName.statesPlist)
             return savedFileURL.path
         } else {
             print("Couldn't find the document directory. Not entirely sure how that could have happened. ")
