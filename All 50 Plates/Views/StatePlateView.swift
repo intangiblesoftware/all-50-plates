@@ -57,6 +57,8 @@ struct StatePlateView: View {
         }
     }
     
+    // I want the UI to break when there are 2 words in the state name,
+    // but just shrink the text to fit when the name is too long to fit. 
     func correctLineLimit() -> Int {
         let wordCount = statePlate.state.split(separator: " ")
         return wordCount.count > 1 ? 2 : 1
