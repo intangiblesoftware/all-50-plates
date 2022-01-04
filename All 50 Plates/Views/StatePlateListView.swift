@@ -9,32 +9,46 @@ import SwiftUI
 
 struct StatePlateListView: View {
     @ObservedObject var statePlateStore: StatePlateStore
-    
+        
     var body: some View {
-
         NavigationView {
-            List {
-                ForEach(statePlateStore.publishedStatePlates) { statePlate in
-                    StatePlateView(statePlate: statePlate)
+            VStack {
+                if statePlateStore.numberRemaining == 0 {
+                    VStack {
+                        Text("🎉").font(.system(size: 60))
+                        Text("You found them all! Congratulations!")
+                    }
+                } else {
+                    List {
+                        ForEach(statePlateStore.publishedStatePlates) { statePlate in
+                            StatePlateView(statePlate: statePlate)
+                        }.listStyle(.plain)
+                    }.animation(.default, value: statePlateStore.isFiltered)
+                        .onAppear {
+                            // Set the default to clear
+                        }
+
+                    RemainingPlatesView(numberRemaining: $statePlateStore.numberRemaining)
                 }
-            }.animation(.default)
+
+            }
             .navigationTitle(Text("All 50 Plates"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Reset", action: {
+                    Button("Reset") {
                         statePlateStore.reset()
-                    })
+                    }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
+                    Button {
                         statePlateStore.isFiltered.toggle()
-                    }, label: {
+                    } label: {
                         if statePlateStore.isFiltered {
                             Image(systemName: "line.horizontal.3.decrease.circle.fill")
                         } else {
                             Image(systemName: "line.horizontal.3.decrease.circle")
                         }
-                    }).font(.title)
+                    }
                 }
             }
         }
@@ -43,6 +57,9 @@ struct StatePlateListView: View {
 
 struct StatePlateListView_Previews: PreviewProvider {
     static var previews: some View {
-        StatePlateListView(statePlateStore: StatePlateStore())
+        let statePlateStore = StatePlateStore()
+        StatePlateListView(statePlateStore: statePlateStore).preferredColorScheme(.light)
+        StatePlateListView(statePlateStore: statePlateStore).preferredColorScheme(.dark)
     }
 }
+

@@ -16,6 +16,7 @@ struct All_50_PlatesApp: App {
     @StateObject var statePlateStore: StatePlateStore = StatePlateStore()
 
     var body: some Scene {
+        
         WindowGroup {
             StatePlateListView(statePlateStore: statePlateStore)
         }
