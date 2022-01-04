@@ -12,7 +12,8 @@ class StatePlateStore: ObservableObject {
     private var statePlates: [StatePlate] = []
     
     let notificationCenter = NotificationCenter.default
-    
+
+
     // Gonna provide a copy of statePlates that's filtered or not
     var publishedStatePlates: [StatePlate] {
         get {
@@ -23,6 +24,8 @@ class StatePlateStore: ObservableObject {
             }
         }
     }
+        
+    @Published var numberRemaining: Int = 51
     
     // Storing filtered state in user defaults so I can restore on launch
     @Published var isFiltered: Bool {
@@ -43,16 +46,20 @@ class StatePlateStore: ObservableObject {
             plate1.state < plate2.state
         }
         
+        // Now count the found ones
+        numberRemaining = countRemaining()
+        
         // Register to receive notifications
         notificationCenter.addObserver(self, selector: #selector(statePlateUpdated(_ : )), name: .statePlateUpdated, object: nil)
     }
     
-    // We need to be told when a statePlate was updated so we know whether to re-filter our array
+    // We need to be told when a statePlate was updated so we know whether to re-filter our array and to re-count the number remaining
     @objc func statePlateUpdated(_ notification: Notification) {
+        numberRemaining = countRemaining()
         objectWillChange.send()
     }
     
-    // Resets all StatePlates to not found, clears the dates and turns off the filter
+    // Resets all StatePlates to not found, clears the dates and turns off the filter and recounts the number remaining. 
     func reset() {
         statePlates.forEach { statePlate in
             if statePlate.found {
@@ -61,6 +68,7 @@ class StatePlateStore: ObservableObject {
             }
             isFiltered = false
         }
+        numberRemaining = countRemaining()
     }
     
     // Now save to disk
@@ -68,11 +76,18 @@ class StatePlateStore: ObservableObject {
         if let documentDirectoryURL = documentDirectoryURL() {
             // We got the document directory
             // Encode and write the data.
+            let statesPlistURL = documentDirectoryURL.appendingPathComponent(Key.ResourceName.statesPlist)
             if let data = encodeStatePlates() {
-                write(data: data, to: documentDirectoryURL)
+                write(data: data, to: statesPlistURL)
             } else {
-                
+                print("Failed to encode the state.plist")
             }
+        }
+    }
+    
+    private func countRemaining () -> Int {
+        return statePlates.reduce(0) { partialResult, statePlate in
+            partialResult + (statePlate.found ? 0 : 1)
         }
     }
     
@@ -105,7 +120,7 @@ class StatePlateStore: ObservableObject {
         do {
             try data.write(to: url)
         } catch {
-            print("Unable to write data to \(url.path)")
+            print("Unable to write data to \(url)")
             print(error.localizedDescription)
         }
     }
