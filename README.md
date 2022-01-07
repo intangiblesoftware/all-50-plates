@@ -6,6 +6,8 @@ Bored on a long car ride? Use the app to keep track of license plates you see on
 
 --- 
 
+This is my second Swift/SwiftUI app. My wife is a fan of playing the license plate game when we go on long car rides and she uses an app to keep track of the ones she found. I thought to myself, "hey, that would be fun and straightforward to build" so I did. I'd like to keep working on it, polishing it, getting a better iPad experience and use it as an opportunity to develop and Apple Watch app. 
+
 **Version:** 1.0
 
 **Language:** Swift
