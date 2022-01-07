@@ -17,3 +17,4 @@ Bored on a long car ride? Use the app to keep track of license plates you see on
 **Planned features:**
 * Want to improve ending. Make congrats screen a modal popup so as to let users review all the plates they found and when they found them, 
 * Build an Apple Watch extension/app to let people mark off plates they find with their watch. 
+* Build a better experience for iPad. One big list would look ugly. Want to make it more grid-like. Have to see about that. Will be a fun project.
