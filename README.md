@@ -1,8 +1,7 @@
 # All 50 Plates
 
-![All 50 Plates app icon](../All%2050%20Plates/Resources/PlatesIcon.png)
+![All 50 Plates app icon](All%2050%20Plates/Resources/PlatesIcon.png)
 
-*Description*
 Bored on a long car ride? Use the app to keep track of license plates you see on the cars around you. Try to get all 50 before the end of your trip!
 
 --- 
