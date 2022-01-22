@@ -12,25 +12,23 @@ struct StatePlateListView: View {
         
     var body: some View {
         NavigationView {
-            VStack {
-                if statePlateStore.numberRemaining == 0 {
-                    VStack {
-                        Text("🎉").font(.system(size: 60))
-                        Text("You found them all! Congratulations!")
-                    }
-                } else {
-                    List {
-                        ForEach(statePlateStore.publishedStatePlates) { statePlate in
-                            StatePlateView(statePlate: statePlate)
-                        }.listStyle(.plain)
-                    }.animation(.default, value: statePlateStore.isFiltered)
-                        .onAppear {
-                            // Set the default to clear
-                        }
-
-                    RemainingPlatesView(numberRemaining: $statePlateStore.numberRemaining)
+            VStack(spacing: 0) {
+                // trying to make the app background color behind nav bar be the same.
+                // found this solution - put a 0 sized rectangle right at the top touching the nav bar area,
+                // and color that rectangle the color you want. Seems glitchy in simulator.
+                Rectangle()
+                    .frame(height: 0)
+                    .background(Color("AppBackground"))
+                List {
+                    ForEach(statePlateStore.publishedStatePlates) { statePlate in
+                        StatePlateView(statePlate: statePlate)
+                    }.listStyle(.plain)
                 }
-
+                .animation(.default, value: statePlateStore.listState)
+                .onAppear {
+                    UITableView.appearance().backgroundColor = UIColor.clear
+                }
+                RemainingPlatesView(numberRemaining: $statePlateStore.numberRemaining, platesToView: $statePlateStore.listState)
             }
             .navigationTitle(Text("All 50 Plates"))
             .toolbar {
@@ -39,27 +37,18 @@ struct StatePlateListView: View {
                         statePlateStore.reset()
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        statePlateStore.isFiltered.toggle()
-                    } label: {
-                        if statePlateStore.isFiltered {
-                            Image(systemName: "line.horizontal.3.decrease.circle.fill")
-                        } else {
-                            Image(systemName: "line.horizontal.3.decrease.circle")
-                        }
-                    }
-                }
-            }
-        }
+            }.background(Color("AppBackground"))
+        }.background(Color("AppBackground"))
     }
 }
 
 struct StatePlateListView_Previews: PreviewProvider {
     static var previews: some View {
         let statePlateStore = StatePlateStore()
-        StatePlateListView(statePlateStore: statePlateStore).preferredColorScheme(.light)
-        StatePlateListView(statePlateStore: statePlateStore).preferredColorScheme(.dark)
+        Group {
+            StatePlateListView(statePlateStore: statePlateStore).preferredColorScheme(.light)
+            StatePlateListView(statePlateStore: statePlateStore).preferredColorScheme(.dark)
+        }
     }
 }
 

@@ -9,6 +9,7 @@
 struct Key {
     struct UserDefaults {
         static let listIsFiltered = "listIsFiltered"
+        static let listState = "listState"
     }
     
     struct ResourceName {
