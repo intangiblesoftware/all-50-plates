@@ -19,7 +19,11 @@ struct RemainingPlatesView: View {
                 Text("Found").tag(ListState.found)
             }.pickerStyle(SegmentedPickerStyle())
                 .padding()
+                .foregroundColor(Color("MainText"))
             Text(message())
+                .foregroundColor(Color("MainText"))
+                .fixedSize(horizontal: false, vertical: true)
+                .multilineTextAlignment(.center)
                 .padding(.bottom)
                 .transition(AnyTransition.opacity.animation(.easeInOut))
         }.background(Color("AppBackground"))
@@ -39,6 +43,7 @@ struct RemainingPlatesView: View {
         case .found:
             switch numberRemaining {
             case 0: message = "You found all 51 plates! Congratulations!"
+            case 51: message = "You haven't found any so far."
             default: message = "You found \(numberFound) so far."
             }
 

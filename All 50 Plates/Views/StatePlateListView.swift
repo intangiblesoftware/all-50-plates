@@ -9,20 +9,19 @@ import SwiftUI
 
 struct StatePlateListView: View {
     @ObservedObject var statePlateStore: StatePlateStore
-        
+    
+    @State private var resetAlertIsShowing: Bool = false
+    
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                // trying to make the app background color behind nav bar be the same.
-                // found this solution - put a 0 sized rectangle right at the top touching the nav bar area,
-                // and color that rectangle the color you want. Seems glitchy in simulator.
-                Rectangle()
-                    .frame(height: 0)
-                    .background(Color("AppBackground"))
+            VStack() {
                 List {
                     ForEach(statePlateStore.publishedStatePlates) { statePlate in
                         StatePlateView(statePlate: statePlate)
                     }.listStyle(.plain)
+                }
+                .alert("You found them all, you Won!", isPresented: $statePlateStore.gameWon) {
+                    Button("OK", role: .cancel) {}
                 }
                 .animation(.default, value: statePlateStore.listState)
                 .onAppear {
@@ -34,11 +33,29 @@ struct StatePlateListView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Reset") {
-                        statePlateStore.reset()
+                        resetAlertIsShowing = true
+                    }
+                    .foregroundColor(Color("ButtonColor"))
+                    .alert(isPresented: $resetAlertIsShowing) {
+                        let resetButton = Alert.Button.destructive(Text("Reset")) {
+                            statePlateStore.reset()
+                        }
+                        let cancelButton = Alert.Button.cancel()
+                        return Alert(title: Text("Reset the game?"), message: Text("Reset everything back to the start?"), primaryButton: resetButton, secondaryButton: cancelButton)
                     }
                 }
             }.background(Color("AppBackground"))
-        }.background(Color("AppBackground"))
+        }.onAppear {
+            // Variety of ways to control appearance of nav bar views.
+            // I chose this one since I only have one nav bar
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor(named: "AppBackground")
+            appearance.largeTitleTextAttributes = [.foregroundColor: UIColor(named: "MainText") ?? UIColor.black]
+            appearance.titleTextAttributes = [.foregroundColor: UIColor(named: "MainText") ?? UIColor.black]
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
     }
 }
 

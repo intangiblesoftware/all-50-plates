@@ -35,6 +35,8 @@ class StatePlateStore: ObservableObject {
         
     @Published var numberRemaining: Int = 51
     
+    @Published var gameWon: Bool = false
+    
     // Storing filtered state in user defaults so I can restore on launch
     @Published var listState: ListState {
         didSet {
@@ -78,6 +80,9 @@ class StatePlateStore: ObservableObject {
     // We need to be told when a statePlate was updated so we know whether to re-filter our array and to re-count the number remaining
     @objc func statePlateUpdated(_ notification: Notification) {
         numberRemaining = countRemaining()
+//        if numberRemaining == 0 {
+//            gameWon = true
+//        }
         objectWillChange.send()
     }
     
@@ -91,6 +96,7 @@ class StatePlateStore: ObservableObject {
             listState = .allPlates
         }
         numberRemaining = countRemaining()
+        gameWon = false
     }
     
     // Now save to disk
