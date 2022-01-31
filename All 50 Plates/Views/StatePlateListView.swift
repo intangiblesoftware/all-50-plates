@@ -9,7 +9,6 @@ import SwiftUI
 
 struct StatePlateListView: View {
     @ObservedObject var statePlateStore: StatePlateStore
-    
     @State private var resetAlertIsShowing: Bool = false
     
     var body: some View {
@@ -20,9 +19,11 @@ struct StatePlateListView: View {
                         StatePlateView(statePlate: statePlate)
                     }.listStyle(.plain)
                 }
-                .alert("You found them all, you Won!", isPresented: $statePlateStore.gameWon) {
+                .alert("You won!", isPresented: $statePlateStore.gameWon, actions: {
                     Button("OK", role: .cancel) {}
-                }
+                }, message: {
+                    Text("You found all 51 license plates!\nCongratulations! ")
+                })
                 .animation(.default, value: statePlateStore.listState)
                 .onAppear {
                     UITableView.appearance().backgroundColor = UIColor.clear
@@ -61,10 +62,9 @@ struct StatePlateListView: View {
 
 struct StatePlateListView_Previews: PreviewProvider {
     static var previews: some View {
-        let statePlateStore = StatePlateStore()
         Group {
-            StatePlateListView(statePlateStore: statePlateStore).preferredColorScheme(.light)
-            StatePlateListView(statePlateStore: statePlateStore).preferredColorScheme(.dark)
+            StatePlateListView(statePlateStore: StatePlateStore()).preferredColorScheme(.light)
+            StatePlateListView(statePlateStore: StatePlateStore()).preferredColorScheme(.dark)
         }
     }
 }

@@ -33,7 +33,7 @@ class StatePlateStore: ObservableObject {
         }
     }
         
-    @Published var numberRemaining: Int = 51
+    var numberRemaining: Int = 51
     
     @Published var gameWon: Bool = false
     
@@ -70,8 +70,10 @@ class StatePlateStore: ObservableObject {
             plate1.state < plate2.state
         }
         
-        // Now count the found ones
+        // Now count the unfound ones
         numberRemaining = countRemaining()
+        
+        gameWon = numberRemaining <= 0
         
         // Register to receive notifications
         notificationCenter.addObserver(self, selector: #selector(statePlateUpdated(_ : )), name: .statePlateUpdated, object: nil)
@@ -80,9 +82,7 @@ class StatePlateStore: ObservableObject {
     // We need to be told when a statePlate was updated so we know whether to re-filter our array and to re-count the number remaining
     @objc func statePlateUpdated(_ notification: Notification) {
         numberRemaining = countRemaining()
-//        if numberRemaining == 0 {
-//            gameWon = true
-//        }
+        gameWon = numberRemaining <= 0
         objectWillChange.send()
     }
     
