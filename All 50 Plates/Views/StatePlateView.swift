@@ -27,12 +27,15 @@ struct StatePlateView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                         .allowsTightening(true)
-                        .minimumScaleFactor(0.9)
+                        //.fixedSize(horizontal: false, vertical: true)
+                        .multilineTextAlignment(.leading)
+                        .minimumScaleFactor(0.8)
                         .lineLimit(correctLineLimit())
-                        .foregroundColor(statePlate.found ? Color("FoundTextColor") : Color("BaseTextColor"))
+                        .foregroundColor(statePlate.found ? Color("FoundText") : Color("MainText"))
+                        .truncationMode(.tail)
                     Text(statePlate.date ?? "")
                         .font(.footnote)
-                        .foregroundColor(statePlate.found ? Color("FoundTextColor") : Color("BaseTextColor"))
+                        .foregroundColor(statePlate.found ? Color("FoundText") : Color("MainText"))
                 }
                 Spacer()
                 if statePlate.found {
@@ -49,7 +52,6 @@ struct StatePlateView: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal)
-            .listRowBackground(Color.purple)
             .onTapGesture {
                 withAnimation {
                     statePlate.found.toggle()
@@ -57,6 +59,7 @@ struct StatePlateView: View {
                 }
             }
         }
+        .listRowBackground(Color("CellBackground"))
     }
     
     // I want the UI to break when there are 2 words in the state name,

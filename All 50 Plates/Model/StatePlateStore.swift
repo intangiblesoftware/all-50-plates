@@ -7,36 +7,60 @@
 
 import Foundation
 
+enum ListState: String {
+    case allPlates = "allPlates"
+    case found = "found"
+    case notFound = "notFound"
+}
+
 class StatePlateStore: ObservableObject {
     // The array of all the statePlates
     private var statePlates: [StatePlate] = []
     
     let notificationCenter = NotificationCenter.default
 
-
     // Gonna provide a copy of statePlates that's filtered or not
     var publishedStatePlates: [StatePlate] {
         get {
-            if isFiltered {
-                return statePlates.filter { !$0.found }
-            } else {
+            switch listState {
+            case .allPlates:
                 return statePlates
+            case .notFound:
+                return statePlates.filter { !$0.found }
+            case .found:
+                return statePlates.filter { $0.found }
             }
         }
     }
         
-    @Published var numberRemaining: Int = 51
+    var numberRemaining: Int = 51
+    
+    @Published var gameWon: Bool = false
     
     // Storing filtered state in user defaults so I can restore on launch
-    @Published var isFiltered: Bool {
+    @Published var listState: ListState {
         didSet {
-            UserDefaults.standard.setValue(isFiltered, forKey: Key.UserDefaults.listIsFiltered)
+            UserDefaults.standard.set(listState.rawValue, forKey: Key.UserDefaults.listState)
         }
     }
     
     init() {
-        // Get filtered state from user defaults
-        isFiltered = UserDefaults.standard.value(forKey: Key.UserDefaults.listIsFiltered) as? Bool ?? false
+        // Get old filtered state from user defaults if it exists.
+        let isFiltered = UserDefaults.standard.value(forKey: Key.UserDefaults.listIsFiltered) as? Bool ?? false
+        if isFiltered {
+            // Trying to preserve the state for users upgrading
+            // If they have a saved list that's filtered, I'm gonna preserve that
+            // But I'm getting rid of that user default and using the listState instead
+            listState = .notFound
+        } else {
+            // Initialize to all plates if we don't have a user default
+            if let listStateRawValue = UserDefaults.standard.object(forKey: Key.UserDefaults.listState) as? String {
+                listState = ListState(rawValue: listStateRawValue) ?? .allPlates
+            } else {
+                listState = .allPlates
+            }
+        }
+        
         
         // Get StatePlates from some plist or another
         statePlates = self.arrayOfStatePlates()
@@ -46,8 +70,10 @@ class StatePlateStore: ObservableObject {
             plate1.state < plate2.state
         }
         
-        // Now count the found ones
+        // Now count the unfound ones
         numberRemaining = countRemaining()
+        
+        gameWon = numberRemaining <= 0
         
         // Register to receive notifications
         notificationCenter.addObserver(self, selector: #selector(statePlateUpdated(_ : )), name: .statePlateUpdated, object: nil)
@@ -56,6 +82,7 @@ class StatePlateStore: ObservableObject {
     // We need to be told when a statePlate was updated so we know whether to re-filter our array and to re-count the number remaining
     @objc func statePlateUpdated(_ notification: Notification) {
         numberRemaining = countRemaining()
+        gameWon = numberRemaining <= 0
         objectWillChange.send()
     }
     
@@ -66,9 +93,10 @@ class StatePlateStore: ObservableObject {
                 statePlate.found = false
                 statePlate.date = ""
             }
-            isFiltered = false
+            listState = .allPlates
         }
         numberRemaining = countRemaining()
+        gameWon = false
     }
     
     // Now save to disk

@@ -9,57 +9,63 @@ import SwiftUI
 
 struct StatePlateListView: View {
     @ObservedObject var statePlateStore: StatePlateStore
-        
+    @State private var resetAlertIsShowing: Bool = false
+    
     var body: some View {
         NavigationView {
-            VStack {
-                if statePlateStore.numberRemaining == 0 {
-                    VStack {
-                        Text("🎉").font(.system(size: 60))
-                        Text("You found them all! Congratulations!")
-                    }
-                } else {
-                    List {
-                        ForEach(statePlateStore.publishedStatePlates) { statePlate in
-                            StatePlateView(statePlate: statePlate)
-                        }.listStyle(.plain)
-                    }.animation(.default, value: statePlateStore.isFiltered)
-                        .onAppear {
-                            // Set the default to clear
-                        }
-
-                    RemainingPlatesView(numberRemaining: $statePlateStore.numberRemaining)
+            VStack() {
+                List {
+                    ForEach(statePlateStore.publishedStatePlates) { statePlate in
+                        StatePlateView(statePlate: statePlate)
+                    }.listStyle(.plain)
                 }
-
+                .alert("You won!", isPresented: $statePlateStore.gameWon, actions: {
+                    Button("OK", role: .cancel) {}
+                }, message: {
+                    Text("You found all 51 license plates!\nCongratulations! ")
+                })
+                .animation(.default, value: statePlateStore.listState)
+                .onAppear {
+                    UITableView.appearance().backgroundColor = UIColor.clear
+                }
+                RemainingPlatesView(numberRemaining: $statePlateStore.numberRemaining, platesToView: $statePlateStore.listState)
             }
             .navigationTitle(Text("All 50 Plates"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Reset") {
-                        statePlateStore.reset()
+                        resetAlertIsShowing = true
                     }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        statePlateStore.isFiltered.toggle()
-                    } label: {
-                        if statePlateStore.isFiltered {
-                            Image(systemName: "line.horizontal.3.decrease.circle.fill")
-                        } else {
-                            Image(systemName: "line.horizontal.3.decrease.circle")
+                    .foregroundColor(Color("ButtonColor"))
+                    .alert(isPresented: $resetAlertIsShowing) {
+                        let resetButton = Alert.Button.destructive(Text("Reset")) {
+                            statePlateStore.reset()
                         }
+                        let cancelButton = Alert.Button.cancel()
+                        return Alert(title: Text("Reset the game?"), message: Text("Reset everything back to the start?"), primaryButton: resetButton, secondaryButton: cancelButton)
                     }
                 }
-            }
+            }.background(Color("AppBackground"))
+        }.onAppear {
+            // Variety of ways to control appearance of nav bar views.
+            // I chose this one since I only have one nav bar
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor(named: "AppBackground")
+            appearance.largeTitleTextAttributes = [.foregroundColor: UIColor(named: "MainText") ?? UIColor.black]
+            appearance.titleTextAttributes = [.foregroundColor: UIColor(named: "MainText") ?? UIColor.black]
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
         }
     }
 }
 
 struct StatePlateListView_Previews: PreviewProvider {
     static var previews: some View {
-        let statePlateStore = StatePlateStore()
-        StatePlateListView(statePlateStore: statePlateStore).preferredColorScheme(.light)
-        StatePlateListView(statePlateStore: statePlateStore).preferredColorScheme(.dark)
+        Group {
+            StatePlateListView(statePlateStore: StatePlateStore()).preferredColorScheme(.light)
+            StatePlateListView(statePlateStore: StatePlateStore()).preferredColorScheme(.dark)
+        }
     }
 }
 
