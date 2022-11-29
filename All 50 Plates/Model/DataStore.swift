@@ -7,98 +7,68 @@
 
 import Foundation
 
-enum ListState: String {
-    case allPlates = "allPlates"
-    case found = "found"
-    case notFound = "notFound"
-}
+// DataStore is now a "dumb" store whose only function is to
+// get the license plate data stored on disk
+// and then save to disk on command.
+// It knows nothing about anything else in the app.
+// Conforms to a protocol so it can be swapped out with a mock data store for testing purposes.
 
-class StatePlateStore: ObservableObject {
+class DataStore: LicensePlateStore {
     // The array of all the statePlates
-    private var statePlates: [StatePlate] = []
+    internal var licensePlates: [LicensePlate] = []
     
     let notificationCenter = NotificationCenter.default
 
     // Gonna provide a copy of statePlates that's filtered or not
-    var publishedStatePlates: [StatePlate] {
+    var publishedStatePlates: [LicensePlate] {
         get {
-            switch listState {
-            case .allPlates:
-                return statePlates
-            case .notFound:
-                return statePlates.filter { !$0.found }
-            case .found:
-                return statePlates.filter { $0.found }
-            }
+                return licensePlates
         }
     }
         
     var numberRemaining: Int = 51
     
-    @Published var gameWon: Bool = false
-    
-    // Storing filtered state in user defaults so I can restore on launch
-    @Published var listState: ListState {
-        didSet {
-            UserDefaults.standard.set(listState.rawValue, forKey: Key.UserDefaults.listState)
-        }
-    }
+    var gameWon: Bool = false
     
     init() {
-        // Get old filtered state from user defaults if it exists.
-        let isFiltered = UserDefaults.standard.value(forKey: Key.UserDefaults.listIsFiltered) as? Bool ?? false
-        if isFiltered {
-            // Trying to preserve the state for users upgrading
-            // If they have a saved list that's filtered, I'm gonna preserve that
-            // But I'm getting rid of that user default and using the listState instead
-            listState = .notFound
-        } else {
-            // Initialize to all plates if we don't have a user default
-            if let listStateRawValue = UserDefaults.standard.object(forKey: Key.UserDefaults.listState) as? String {
-                listState = ListState(rawValue: listStateRawValue) ?? .allPlates
-            } else {
-                listState = .allPlates
-            }
-        }
         
-        
-        // Get StatePlates from some plist or another
-        statePlates = self.arrayOfStatePlates()
+        // Get license plates from some plist or another
+        licensePlates = self.arrayOfStatePlates()
         
         // And sort them
-        statePlates.sort { plate1, plate2 in
+        licensePlates.sort { plate1, plate2 in
             plate1.state < plate2.state
         }
         
-        // Now count the unfound ones
-        numberRemaining = countRemaining()
-        
-        gameWon = numberRemaining <= 0
+//        // Now count the unfound ones
+//        numberRemaining = countRemaining()
+//
+//        gameWon = numberRemaining <= 0
         
         // Register to receive notifications
-        notificationCenter.addObserver(self, selector: #selector(statePlateUpdated(_ : )), name: .statePlateUpdated, object: nil)
+        // notificationCenter.addObserver(self, selector: #selector(statePlateUpdated(_ : )), name: .statePlateUpdated, object: nil)
     }
     
     // We need to be told when a statePlate was updated so we know whether to re-filter our array and to re-count the number remaining
-    @objc func statePlateUpdated(_ notification: Notification) {
-        numberRemaining = countRemaining()
-        gameWon = numberRemaining <= 0
-        objectWillChange.send()
+    func update(plate: LicensePlate) {
+        var plateToUpdate = licensePlates.first { $0 == plate }
+        plateToUpdate?.found = plate.found
+        plateToUpdate?.date = plate.date
     }
     
     // Resets all StatePlates to not found, clears the dates and turns off the filter and recounts the number remaining. 
-    func reset() {
-        statePlates.forEach { statePlate in
-            if statePlate.found {
-                statePlate.found = false
-                statePlate.date = ""
-            }
-            listState = .allPlates
-        }
-        numberRemaining = countRemaining()
-        gameWon = false
-    }
-    
+//    func reset() {
+//        licensePlates.forEach { plate in
+//            if plate.found {
+//                plate.found = false
+//                plate.date = ""
+//            }
+//            listState = .allPlates
+//        }
+//        numberRemaining = countRemaining()
+//        gameWon = false
+//    }
+//    
     // Now save to disk
     func save() {
         if let documentDirectoryURL = documentDirectoryURL() {
@@ -113,11 +83,11 @@ class StatePlateStore: ObservableObject {
         }
     }
     
-    private func countRemaining () -> Int {
-        return statePlates.reduce(0) { partialResult, statePlate in
-            partialResult + (statePlate.found ? 0 : 1)
-        }
-    }
+//    private func countRemaining () -> Int {
+//        return licensePlates.reduce(0) { partialResult, statePlate in
+//            partialResult + (statePlate.found ? 0 : 1)
+//        }
+//    }
     
     private func documentDirectoryURL () -> URL? {
         // Let's get the default file manager
@@ -135,7 +105,7 @@ class StatePlateStore: ObservableObject {
     private func encodeStatePlates () -> Data? {
         let encoder = PropertyListEncoder()
         do {
-            let data = try encoder.encode(statePlates)
+            let data = try encoder.encode(licensePlates)
             return data
         } catch {
             print("Error encoding the data.")
@@ -166,17 +136,17 @@ class StatePlateStore: ObservableObject {
     
     // Returns the path to the states.plist in the main bundle
     func pathToMainBundle() -> String? {
-        Bundle.main.path(forResource: "states", ofType: "plist")
+        Bundle.main.path(forResource: "plates", ofType: "plist")
     }
     
     // Parse the xml of the states.plist and return an array of StatePlate structs
-    private func arrayOfStatePlates() -> [StatePlate] {
+    private func arrayOfStatePlates() -> [LicensePlate] {
         // First, we'll try to get the data from the saved file
         if let path = pathToDocuments() {
             if let stateXML = FileManager.default.contents(atPath: path) {
                 // Hey, there were contents there, so let's try to decode them.
                 do {
-                    return try PropertyListDecoder().decode([StatePlate].self, from: stateXML)
+                    return try PropertyListDecoder().decode([LicensePlate].self, from: stateXML)
                 } catch {
                     print("Error parsing saved states.plist file.")
                     print(error.localizedDescription)
@@ -188,7 +158,7 @@ class StatePlateStore: ObservableObject {
                     if let stateXML = FileManager.default.contents(atPath: pathToMainBundle) {
                         // Hey, there were contents there, so let's try to decode them.
                         do {
-                            return try PropertyListDecoder().decode([StatePlate].self, from: stateXML)
+                            return try PropertyListDecoder().decode([LicensePlate].self, from: stateXML)
                         } catch {
                             print("Error parsing states.plist resource.")
                             print(error.localizedDescription)
@@ -202,12 +172,12 @@ class StatePlateStore: ObservableObject {
         // If we got here, there was nothing in the saved file (or an error parsing it.
         // And nothing in the main bundle - which who knows how that happened.
         // So let's just give 'em a heaping plate of nothing.
-        let errorState = StatePlate(state: "No state data found", plate: "", found: false, date: "")
+        let errorState = LicensePlate(state: "No state data found", plate: "", found: false, date: "")
         return [errorState]
     }
 }
 
 extension Notification.Name {
-    static let statePlateUpdated = Notification.Name("ISStatePlateUpdated")
+    static let statePlateUpdated = Notification.Name("ISLicensePlateUpdated")
 }
 

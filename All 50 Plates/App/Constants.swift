@@ -13,7 +13,7 @@ struct Key {
     }
     
     struct ResourceName {
-        static let statesPlist = "states.plist"
+        static let statesPlist = "plates.plist"
     }
 }
 

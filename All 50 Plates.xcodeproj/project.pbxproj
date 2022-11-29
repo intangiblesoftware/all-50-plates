@@ -8,30 +8,39 @@
 
 /* Begin PBXBuildFile section */
 		3832604C26F8F8390070A692 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3832604B26F8F8390070A692 /* Constants.swift */; };
+		387A068A27E93DA4009443CB /* LicensePlateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A068927E93DA4009443CB /* LicensePlateListViewModel.swift */; };
+		387A068C27E93DB1009443CB /* LicensePlateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A068B27E93DB1009443CB /* LicensePlateViewModel.swift */; };
+		387A068E27E9442D009443CB /* MockDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A068D27E9442D009443CB /* MockDataStore.swift */; };
+		387A069027E94459009443CB /* LicensePlateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A068F27E94459009443CB /* LicensePlateStore.swift */; };
 		38D0A9AD26FBB2A30039D7CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38FB940126E429BD0057F367 /* Assets.xcassets */; };
 		38D0A9AF26FD0C800039D7CA /* RemainingPlatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0A9AE26FD0C800039D7CA /* RemainingPlatesView.swift */; };
 		38FB93FE26E429BC0057F367 /* All_50_PlatesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB93FD26E429BC0057F367 /* All_50_PlatesApp.swift */; };
-		38FB940026E429BC0057F367 /* StatePlateListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB93FF26E429BC0057F367 /* StatePlateListView.swift */; };
+		38FB940026E429BC0057F367 /* LicensePlateListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB93FF26E429BC0057F367 /* LicensePlateListView.swift */; };
 		38FB940526E429BD0057F367 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38FB940426E429BD0057F367 /* Preview Assets.xcassets */; };
-		38FB940D26E429FF0057F367 /* states.plist in Resources */ = {isa = PBXBuildFile; fileRef = 38FB940C26E429FF0057F367 /* states.plist */; };
-		38FB940F26E434000057F367 /* StatePlate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB940E26E434000057F367 /* StatePlate.swift */; };
-		38FB941926E57BFF0057F367 /* StatePlateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB941826E57BFF0057F367 /* StatePlateStore.swift */; };
-		38FB941B26E588620057F367 /* StatePlateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB941A26E588620057F367 /* StatePlateView.swift */; };
+		38FB940D26E429FF0057F367 /* plates.plist in Resources */ = {isa = PBXBuildFile; fileRef = 38FB940C26E429FF0057F367 /* plates.plist */; };
+		38FB940F26E434000057F367 /* LicensePlate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB940E26E434000057F367 /* LicensePlate.swift */; };
+		38FB941926E57BFF0057F367 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB941826E57BFF0057F367 /* DataStore.swift */; };
+		38FB941B26E588620057F367 /* LicensePlateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB941A26E588620057F367 /* LicensePlateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3832604B26F8F8390070A692 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		38415D3928232282002A03BF /* All 50 Plates.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "All 50 Plates.entitlements"; sourceTree = "<group>"; };
+		387A068927E93DA4009443CB /* LicensePlateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateListViewModel.swift; sourceTree = "<group>"; };
+		387A068B27E93DB1009443CB /* LicensePlateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateViewModel.swift; sourceTree = "<group>"; };
+		387A068D27E9442D009443CB /* MockDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataStore.swift; sourceTree = "<group>"; };
+		387A068F27E94459009443CB /* LicensePlateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateStore.swift; sourceTree = "<group>"; };
 		38D0A9AE26FD0C800039D7CA /* RemainingPlatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingPlatesView.swift; sourceTree = "<group>"; };
 		38FB93FA26E429BC0057F367 /* All 50 Plates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "All 50 Plates.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		38FB93FD26E429BC0057F367 /* All_50_PlatesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = All_50_PlatesApp.swift; sourceTree = "<group>"; };
-		38FB93FF26E429BC0057F367 /* StatePlateListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatePlateListView.swift; sourceTree = "<group>"; };
+		38FB93FF26E429BC0057F367 /* LicensePlateListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateListView.swift; sourceTree = "<group>"; };
 		38FB940126E429BD0057F367 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38FB940426E429BD0057F367 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		38FB940626E429BD0057F367 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		38FB940C26E429FF0057F367 /* states.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = states.plist; sourceTree = "<group>"; };
-		38FB940E26E434000057F367 /* StatePlate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatePlate.swift; sourceTree = "<group>"; };
-		38FB941826E57BFF0057F367 /* StatePlateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatePlateStore.swift; sourceTree = "<group>"; };
-		38FB941A26E588620057F367 /* StatePlateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatePlateView.swift; sourceTree = "<group>"; };
+		38FB940C26E429FF0057F367 /* plates.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = plates.plist; sourceTree = "<group>"; };
+		38FB940E26E434000057F367 /* LicensePlate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlate.swift; sourceTree = "<group>"; };
+		38FB941826E57BFF0057F367 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		38FB941A26E588620057F367 /* LicensePlateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +54,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		387A069127EA1EF2009443CB /* LicensePlateList */ = {
+			isa = PBXGroup;
+			children = (
+				387A068927E93DA4009443CB /* LicensePlateListViewModel.swift */,
+				38FB93FF26E429BC0057F367 /* LicensePlateListView.swift */,
+				38D0A9AE26FD0C800039D7CA /* RemainingPlatesView.swift */,
+			);
+			path = LicensePlateList;
+			sourceTree = "<group>";
+		};
+		387A069227EA1F10009443CB /* LicensePlate */ = {
+			isa = PBXGroup;
+			children = (
+				38FB941A26E588620057F367 /* LicensePlateView.swift */,
+				387A068B27E93DB1009443CB /* LicensePlateViewModel.swift */,
+			);
+			path = LicensePlate;
+			sourceTree = "<group>";
+		};
 		38FB93F126E429BC0057F367 = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +92,7 @@
 		38FB93FC26E429BC0057F367 /* All 50 Plates */ = {
 			isa = PBXGroup;
 			children = (
+				38415D3928232282002A03BF /* All 50 Plates.entitlements */,
 				38FB941026E435980057F367 /* App */,
 				38FB941326E436010057F367 /* Resources */,
 				38FB941226E435E10057F367 /* Views */,
@@ -94,8 +123,10 @@
 		38FB941126E435B40057F367 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				38FB940E26E434000057F367 /* StatePlate.swift */,
-				38FB941826E57BFF0057F367 /* StatePlateStore.swift */,
+				387A068F27E94459009443CB /* LicensePlateStore.swift */,
+				38FB941826E57BFF0057F367 /* DataStore.swift */,
+				387A068D27E9442D009443CB /* MockDataStore.swift */,
+				38FB940E26E434000057F367 /* LicensePlate.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -103,9 +134,8 @@
 		38FB941226E435E10057F367 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				38FB93FF26E429BC0057F367 /* StatePlateListView.swift */,
-				38FB941A26E588620057F367 /* StatePlateView.swift */,
-				38D0A9AE26FD0C800039D7CA /* RemainingPlatesView.swift */,
+				387A069127EA1EF2009443CB /* LicensePlateList */,
+				387A069227EA1F10009443CB /* LicensePlate */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -114,7 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				38FB940126E429BD0057F367 /* Assets.xcassets */,
-				38FB940C26E429FF0057F367 /* states.plist */,
+				38FB940C26E429FF0057F367 /* plates.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -178,7 +208,7 @@
 			files = (
 				38FB940526E429BD0057F367 /* Preview Assets.xcassets in Resources */,
 				38D0A9AD26FBB2A30039D7CA /* Assets.xcassets in Resources */,
-				38FB940D26E429FF0057F367 /* states.plist in Resources */,
+				38FB940D26E429FF0057F367 /* plates.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,12 +219,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38FB941B26E588620057F367 /* StatePlateView.swift in Sources */,
-				38FB940026E429BC0057F367 /* StatePlateListView.swift in Sources */,
-				38FB940F26E434000057F367 /* StatePlate.swift in Sources */,
+				38FB941B26E588620057F367 /* LicensePlateView.swift in Sources */,
+				387A068C27E93DB1009443CB /* LicensePlateViewModel.swift in Sources */,
+				38FB940026E429BC0057F367 /* LicensePlateListView.swift in Sources */,
+				38FB940F26E434000057F367 /* LicensePlate.swift in Sources */,
+				387A068A27E93DA4009443CB /* LicensePlateListViewModel.swift in Sources */,
+				387A068E27E9442D009443CB /* MockDataStore.swift in Sources */,
 				38FB93FE26E429BC0057F367 /* All_50_PlatesApp.swift in Sources */,
 				38D0A9AF26FD0C800039D7CA /* RemainingPlatesView.swift in Sources */,
-				38FB941926E57BFF0057F367 /* StatePlateStore.swift in Sources */,
+				387A069027E94459009443CB /* LicensePlateStore.swift in Sources */,
+				38FB941926E57BFF0057F367 /* DataStore.swift in Sources */,
 				3832604C26F8F8390070A692 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -324,6 +358,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = "All 50 Plates/All 50 Plates.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"All 50 Plates/Preview Content\"";
 				DEVELOPMENT_TEAM = CRBB3K29X3;
@@ -348,6 +383,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = "All 50 Plates/All 50 Plates.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"All 50 Plates/Preview Content\"";
 				DEVELOPMENT_TEAM = CRBB3K29X3;

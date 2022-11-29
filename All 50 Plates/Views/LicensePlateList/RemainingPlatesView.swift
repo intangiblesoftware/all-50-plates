@@ -9,14 +9,14 @@ import SwiftUI
 
 struct RemainingPlatesView: View {
     @Binding var numberRemaining: Int
-    @Binding var platesToView: ListState
+    @Binding var platesToView: ListFilterState
     
     var body: some View {
         VStack {
             Picker("Plates", selection: $platesToView) {
-                Text("All Plates").tag(ListState.allPlates)
-                Text("Left to Find").tag(ListState.notFound)
-                Text("Found").tag(ListState.found)
+                Text("All Plates").tag(ListFilterState.allPlates)
+                Text("Left to Find").tag(ListFilterState.notFound)
+                Text("Found").tag(ListFilterState.found)
             }.pickerStyle(SegmentedPickerStyle())
                 .padding()
                 .foregroundColor(Color("MainText"))
@@ -63,9 +63,9 @@ struct RemainingPlatesView_Previews: PreviewProvider {
     static private var noneRemaining = Binding.constant(0)
     static private var oneRemaining = Binding.constant(1)
     static private var someRemaining = Binding.constant(21)
-    static private var allPlates = Binding.constant(ListState.allPlates)
-    static private var leftToFind = Binding.constant(ListState.notFound)
-    static private var found = Binding.constant(ListState.found)
+    static private var allPlates = Binding.constant(ListFilterState.allPlates)
+    static private var leftToFind = Binding.constant(ListFilterState.notFound)
+    static private var found = Binding.constant(ListFilterState.found)
     
     static var previews: some View {
         VStack {
