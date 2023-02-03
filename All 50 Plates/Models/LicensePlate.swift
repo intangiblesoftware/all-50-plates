@@ -7,34 +7,18 @@
 
 import Foundation
 
-struct LicensePlate: CustomDebugStringConvertible, Identifiable, Codable, Hashable  {
+/// A Struct representing a single state's license plate, whether it's been found and the date found, if any.
+struct LicensePlate: CustomDebugStringConvertible, Codable {
     
     // MARK: - Properties
-    var state: String
-    var plate: String
-    var date: String?
-    var found: Bool {
-        // observing when the value changes and updating other properties as needed.
-        didSet {
-            if found {
-                date = Date().ISO8601Format()
-            } else {
-                date = ""
-            }
-        }
-    }
+    let state: String
+    let plate: String
+    let date: String?
+    let found: Bool
     
     // Debug description
     var debugDescription: String {
         return "[State: \(state), Plate: \(plate), Date: \(date ?? "Not set"), Found: \(found)]\n"
-    }
-    
-    // MARK: - Identifiable
-    // Conform to Identifiable. I want to use state as my ID.
-    var id: String {
-        get {
-            return state
-        }
     }
     
     // MARK: - Codable
@@ -45,6 +29,8 @@ struct LicensePlate: CustomDebugStringConvertible, Identifiable, Codable, Hashab
         case found
     }
     
+    /// Inits a license plate from a decoder
+    /// - Parameter decoder: The decoder
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         state = try values.decode(String.self, forKey: .state)
@@ -53,6 +39,8 @@ struct LicensePlate: CustomDebugStringConvertible, Identifiable, Codable, Hashab
         found = try values.decode(Bool.self, forKey: .found)
     }
     
+    /// Encodes a license plate to save to disk
+    /// - Parameter encoder: The encoder
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(state, forKey: .state)
@@ -61,18 +49,13 @@ struct LicensePlate: CustomDebugStringConvertible, Identifiable, Codable, Hashab
         try container.encode(found, forKey: .found)
     }
     
-    // MARK: - Equatable
-    static func == (lhs: LicensePlate, rhs: LicensePlate) -> Bool {
-        lhs.state == rhs.state && lhs.plate == rhs.plate
-    }
-    
-    // MARK: - Hashable
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(state)
-        hasher.combine(plate)
-    }
-    
     // MARK: - Lifecycle
+    /// Init a license plate with its properties
+    /// - Parameters:
+    ///   - state: The full name of the state. Also used as the id of the struct.
+    ///   - plate: The state's 2 letter postal abbreviation. Also used as the name of the license plate image. 
+    ///   - found: Boolean indicating whether this plate has been found yet.
+    ///   - date: The date the plate was found.
     init(state: String, plate: String, found: Bool, date: String?) {
         self.state = state
         self.plate = plate

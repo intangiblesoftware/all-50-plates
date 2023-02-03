@@ -15,7 +15,7 @@ struct All_50_PlatesApp: App {
     // Create the statePlate store.
     // Creating it as a mock data store should be done somewhere else I'm sure.
     // But I'm doing it here for now.
-    let dataStore: LicensePlateStore = MockDataStore()
+    let dataStore = MockDataStore()
 
     var body: some Scene {
         

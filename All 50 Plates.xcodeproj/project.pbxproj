@@ -11,7 +11,6 @@
 		387A068A27E93DA4009443CB /* LicensePlateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A068927E93DA4009443CB /* LicensePlateListViewModel.swift */; };
 		387A068C27E93DB1009443CB /* LicensePlateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A068B27E93DB1009443CB /* LicensePlateViewModel.swift */; };
 		387A068E27E9442D009443CB /* MockDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A068D27E9442D009443CB /* MockDataStore.swift */; };
-		387A069027E94459009443CB /* LicensePlateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A068F27E94459009443CB /* LicensePlateStore.swift */; };
 		38D0A9AD26FBB2A30039D7CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38FB940126E429BD0057F367 /* Assets.xcassets */; };
 		38D0A9AF26FD0C800039D7CA /* RemainingPlatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0A9AE26FD0C800039D7CA /* RemainingPlatesView.swift */; };
 		38FB93FE26E429BC0057F367 /* All_50_PlatesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB93FD26E429BC0057F367 /* All_50_PlatesApp.swift */; };
@@ -29,7 +28,6 @@
 		387A068927E93DA4009443CB /* LicensePlateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateListViewModel.swift; sourceTree = "<group>"; };
 		387A068B27E93DB1009443CB /* LicensePlateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateViewModel.swift; sourceTree = "<group>"; };
 		387A068D27E9442D009443CB /* MockDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataStore.swift; sourceTree = "<group>"; };
-		387A068F27E94459009443CB /* LicensePlateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateStore.swift; sourceTree = "<group>"; };
 		38D0A9AE26FD0C800039D7CA /* RemainingPlatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingPlatesView.swift; sourceTree = "<group>"; };
 		38FB93FA26E429BC0057F367 /* All 50 Plates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "All 50 Plates.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		38FB93FD26E429BC0057F367 /* All_50_PlatesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = All_50_PlatesApp.swift; sourceTree = "<group>"; };
@@ -73,6 +71,15 @@
 			path = LicensePlate;
 			sourceTree = "<group>";
 		};
+		389760F9298DC6BD00D1E236 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				38FB941826E57BFF0057F367 /* DataStore.swift */,
+				387A068D27E9442D009443CB /* MockDataStore.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
 		38FB93F126E429BC0057F367 = {
 			isa = PBXGroup;
 			children = (
@@ -96,7 +103,8 @@
 				38FB941026E435980057F367 /* App */,
 				38FB941326E436010057F367 /* Resources */,
 				38FB941226E435E10057F367 /* Views */,
-				38FB941126E435B40057F367 /* Model */,
+				389760F9298DC6BD00D1E236 /* Repositories */,
+				38FB941126E435B40057F367 /* Models */,
 				38FB940326E429BD0057F367 /* Preview Content */,
 			);
 			path = "All 50 Plates";
@@ -120,15 +128,12 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		38FB941126E435B40057F367 /* Model */ = {
+		38FB941126E435B40057F367 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				387A068F27E94459009443CB /* LicensePlateStore.swift */,
-				38FB941826E57BFF0057F367 /* DataStore.swift */,
-				387A068D27E9442D009443CB /* MockDataStore.swift */,
 				38FB940E26E434000057F367 /* LicensePlate.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		38FB941226E435E10057F367 /* Views */ = {
@@ -227,7 +232,6 @@
 				387A068E27E9442D009443CB /* MockDataStore.swift in Sources */,
 				38FB93FE26E429BC0057F367 /* All_50_PlatesApp.swift in Sources */,
 				38D0A9AF26FD0C800039D7CA /* RemainingPlatesView.swift in Sources */,
-				387A069027E94459009443CB /* LicensePlateStore.swift in Sources */,
 				38FB941926E57BFF0057F367 /* DataStore.swift in Sources */,
 				3832604C26F8F8390070A692 /* Constants.swift in Sources */,
 			);
