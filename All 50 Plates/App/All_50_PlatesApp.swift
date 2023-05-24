@@ -12,15 +12,12 @@ import UIKit
 struct All_50_PlatesApp: App {
     @Environment (\.scenePhase) var scenePhase
         
-    // Create the statePlate store.
-    // Creating it as a mock data store should be done somewhere else I'm sure.
-    // But I'm doing it here for now.
-    let dataStore = MockDataStore()
+    let appModel = AppModel(dataStore: DataStore())
 
     var body: some Scene {
         
-        WindowGroup {
-            LicensePlateListView(model: LicensePlateListViewModel(with: dataStore))
+        WindowGroup<LicensePlateListView> {
+            LicensePlateListView(model: appModel)
         }
         .onChange(of: scenePhase) { newPhase in
             switch newPhase {
@@ -31,8 +28,9 @@ struct All_50_PlatesApp: App {
                 // Don't need to do anything here either.
                 break
             case .inactive:
-                // However, here, I want to write any changes to the plist
-                dataStore.save()
+                // Let the app model know we're moving to the backgroud
+                appModel.moveToBackground()
+                break
             default:
                 print("Wow, some new scenePhase was introduced. Not sure what to do here now...")
             }

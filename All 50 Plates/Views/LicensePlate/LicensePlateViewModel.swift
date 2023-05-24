@@ -8,37 +8,39 @@
 import Foundation
 import SwiftUI
 
-class LicensePlateViewModel: ObservableObject {
-    let dataStore: LicensePlateStore
-    var plate: LicensePlate
+class LicensePlateViewModel: ObservableObject, Identifiable {    
+    let stateName: String
+    let imageName: String
     
-    @Published var stateName: String
-    @Published var licensePlateImage: Image
     @Published var found: Bool {
         didSet {
             if found {
-                self.dateFoundString = Date().ISO8601Format()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = .long
+                dateFormatter.timeStyle = .none
+                self.dateFound = dateFormatter.string(from: Date())
             } else {
-                self.dateFoundString = ""
+                self.dateFound = nil
             }
-            dataStore.update(plate: self.plate)
         }
     }
-    @Published var dateFoundString: String = ""
+    
+    @Published var dateFound: String?
+    
+    var id: String {
+        // Since image name is the 2-letter postal abbreviation, we can use that as an ID
+        imageName
+    }
+    
+    var model: LicensePlateModel {
+        LicensePlateModel(state: stateName, plate: imageName, found: found, date: dateFound)
+    }
         
-    init(with licensePlate: LicensePlate, in dataStore: LicensePlateStore) {
-        self.dataStore = dataStore
-        self.plate = licensePlate
-        
-        stateName = licensePlate.state
-        licensePlateImage = Image(licensePlate.plate)
-        found = licensePlate.found
-  
-        guard let plateDate = plate.date else {
-            // Our model doesn't have a date, so we're done.
-            // Leave dateFound as nil
-            return
-        }
+    init(licensePlate: LicensePlateModel) {
+        self.stateName = licensePlate.state
+        self.imageName = licensePlate.plate
+        self.dateFound = licensePlate.date
+        self.found = licensePlate.found
 
         // This is gonna be a bit weird.
         // I have to store dates as string, and I want to store in ISO8601 format.
@@ -47,34 +49,31 @@ class LicensePlateViewModel: ObservableObject {
         // which format it's in so I can convert it to an actual Date object.
         // Then, I need to use that date object to re-create a string that's
         // properly formatted for the user's current locale, cause I want to be
-        // supportive of that sort of things.
+        // supportive of that sort of thing.
         // So to sum up, string -> date -> string. Sounds dumb to me, but I think
         // I have to do it this way cause I don't know how to store an optional date
         // property but leave it as nil if the plate is not found yet. :shrug:
         let oldDateFormatter = DateFormatter()
         oldDateFormatter.dateFormat = "MMMM d, yyyy"
         
-        var dateFound = oldDateFormatter.date(from: plateDate)
-        
-        if dateFound == nil {
-            // Old style failed, so let's try ISO8601 formatting instead
-            let isoDateFormatter = ISO8601DateFormatter()
-            isoDateFormatter.formatOptions = .withFullDate
-            dateFound = isoDateFormatter.date(from: plateDate)
+        if let plateDate = licensePlate.date {
+            var dateFound = oldDateFormatter.date(from: plateDate)
+            
+            if dateFound == nil {
+                // Old style failed, so let's try ISO8601 formatting instead
+                let isoDateFormatter = ISO8601DateFormatter()
+                isoDateFormatter.formatOptions = .withFullDate
+                dateFound = isoDateFormatter.date(from: plateDate)
+            }
+            
+            // So now, we have a dateFound (or not)
+            if let dateFound = dateFound {
+                // Now a new, locale-aware date formatter.
+                let newDateFormatter = DateFormatter()
+                newDateFormatter.dateStyle = .long
+                newDateFormatter.timeStyle = .none
+                self.dateFound = newDateFormatter.string(from: dateFound)
+            }
         }
-        
-        // So now, we have a dateFound (or not)
-        if let dateFound = dateFound {
-            // Now a new, locale-aware date formatter.
-            let newDateFormatter = DateFormatter()
-            newDateFormatter.dateStyle = .long
-            newDateFormatter.timeStyle = .none
-            dateFoundString = newDateFormatter.string(from: dateFound)
-        }
-    }
-    
-    func foundPlate() {
-        plate.found = true
-        plate.date = Date().ISO8601Format()
-    }
+    }    
 }

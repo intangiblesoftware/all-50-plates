@@ -8,8 +8,8 @@
 import Foundation
 
 protocol LicensePlateStoreProtocol {
-    func fetch() -> [LicensePlate]
-    func store(plates: [LicensePlate]) -> Void
+    func fetch() -> [LicensePlateModel]
+    func store(plates: [LicensePlateModel]) -> Void
 }
 
 /// A dumb data store that has 2 functions:
@@ -18,7 +18,7 @@ protocol LicensePlateStoreProtocol {
 class DataStore: LicensePlateStoreProtocol {
     // MARK: - Conform to LicensePlateStoreProtocol
 
-    func store(plates: [LicensePlate]) {
+    func store(plates: [LicensePlateModel]) {
         if let documentDirectoryURL = documentDirectoryURL() {
             // We got the document directory
             // Encode and write the data.
@@ -31,13 +31,13 @@ class DataStore: LicensePlateStoreProtocol {
         }
     }
     
-    func fetch() -> [LicensePlate] {
+    func fetch() -> [LicensePlateModel] {
         // First, we'll try to get the data from the saved file
         if let path = pathToDocuments() {
             if let stateXML = FileManager.default.contents(atPath: path) {
                 // Hey, there were contents there, so let's try to decode them.
                 do {
-                    return try PropertyListDecoder().decode([LicensePlate].self, from: stateXML)
+                    return try PropertyListDecoder().decode([LicensePlateModel].self, from: stateXML)
                 } catch {
                     print("Error parsing saved states.plist file.")
                     print(error.localizedDescription)
@@ -49,7 +49,7 @@ class DataStore: LicensePlateStoreProtocol {
                     if let stateXML = FileManager.default.contents(atPath: pathToMainBundle) {
                         // Hey, there were contents there, so let's try to decode them.
                         do {
-                            return try PropertyListDecoder().decode([LicensePlate].self, from: stateXML)
+                            return try PropertyListDecoder().decode([LicensePlateModel].self, from: stateXML)
                         } catch {
                             print("Error parsing states.plist resource.")
                             print(error.localizedDescription)
@@ -63,7 +63,7 @@ class DataStore: LicensePlateStoreProtocol {
         // If we got here, there was nothing in the saved file (or an error parsing it.
         // And nothing in the main bundle - which who knows how that happened.
         // So let's just give 'em a heaping plate of nothing.
-        let errorState = LicensePlate(state: "No state data found", plate: "", found: false, date: "")
+        let errorState = LicensePlateModel(state: "No state data found", plate: "", found: false, date: "")
         return [errorState]
     }
     
@@ -81,7 +81,7 @@ class DataStore: LicensePlateStoreProtocol {
         }
     }
     
-    private func encode (_ plates: [LicensePlate]) -> Data? {
+    private func encode (_ plates: [LicensePlateModel]) -> Data? {
         let encoder = PropertyListEncoder()
         do {
             let data = try encoder.encode(plates)

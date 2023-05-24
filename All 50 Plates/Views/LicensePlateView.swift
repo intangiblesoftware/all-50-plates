@@ -9,19 +9,20 @@ import SwiftUI
 
 struct LicensePlateView: View {
     // The license plate info to display
-    @ObservedObject var plateModel: LicensePlateViewModel
+    let plateModel: LicensePlateModel
+    let appModel: AppModel
     
     var body: some View {
         VStack {
             HStack {
-                plateModel.licensePlateImage
+                Image(plateModel.plate)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 125)
                     .cornerRadius(6.0)
                     .opacity(plateModel.found ? 0.5 : 1.0)
                 VStack(alignment: .leading) {
-                    Text(plateModel.stateName)
+                    Text(plateModel.state)
                         .font(.title2)
                         .fontWeight(.bold)
                         .allowsTightening(true)
@@ -30,9 +31,13 @@ struct LicensePlateView: View {
                         .lineLimit(correctLineLimit())
                         .foregroundColor(plateModel.found ? Color("FoundText") : Color("MainText"))
                         .truncationMode(.tail)
-                    Text(plateModel.dateFoundString)
-                        .font(.footnote)
-                        .foregroundColor(plateModel.found ? Color("FoundText") : Color("MainText"))
+                    if let plateDate = plateModel.date {
+                        let dateFound = ISO8601DateFormatter().date(from: plateDate)
+                        let dateString = foundDateString(dateFound)
+                        Text(dateString)
+                            .font(.footnote)
+                            .foregroundColor(plateModel.found ? Color("FoundText") : Color("MainText"))
+                    }
                 }
                 Spacer()
                 if plateModel.found {
@@ -51,11 +56,10 @@ struct LicensePlateView: View {
             .padding(.horizontal)
             .onTapGesture {
                 withAnimation {
-                    plateModel.found.toggle()
+                    appModel.tapped(plate: plateModel)
                 }
             }
-        }
-        .listRowBackground(Color("CellBackground"))
+        }.background(Color("AppBackground"))
     }
     
     func foundDateString(_ date: Date?) -> String {
@@ -65,7 +69,7 @@ struct LicensePlateView: View {
     // I want the UI to break when there are 2 words in the state name,
     // but just shrink the text to fit when the name is too long to fit. 
     func correctLineLimit() -> Int {
-        let wordCount = plateModel.stateName.split(separator: " ")
+        let wordCount = plateModel.state.split(separator: " ")
         return wordCount.count > 1 ? 2 : 1
     }
 }
@@ -73,33 +77,34 @@ struct LicensePlateView: View {
 struct StateView_Previews: PreviewProvider {
     // Pretty sure there's a better way to do this.
     // Too lazy to figure it out right now.
-    static let dataStore = MockDataStore()
-    static var sc:LicensePlate = dataStore.licensePlates[0]
-    static var ma:LicensePlate = dataStore.licensePlates[1]
-    static var la:LicensePlate = dataStore.licensePlates[2]
-    static var dc:LicensePlate = dataStore.licensePlates[3]
-    static var wi:LicensePlate = dataStore.licensePlates[4]
-    static var il:LicensePlate = dataStore.licensePlates[5]
+    static let mockPlates = MockDataStore().fetch()
+    static var sc:LicensePlateModel = mockPlates[0]
+    static var ma:LicensePlateModel = mockPlates[1]
+    static var la:LicensePlateModel = mockPlates[2]
+    static var dc:LicensePlateModel = mockPlates[3]
+    static var wi:LicensePlateModel = mockPlates[4]
+    static var il:LicensePlateModel = mockPlates[5]
+    static let appModel = AppModel(dataStore: MockDataStore())
 
     static var previews: some View {
         Group {
             VStack {
-                LicensePlateView(plateModel: LicensePlateViewModel(with: sc, in: dataStore))
-                LicensePlateView(plateModel: LicensePlateViewModel(with: ma, in: dataStore))
-                LicensePlateView(plateModel: LicensePlateViewModel(with: la, in: dataStore))
-                LicensePlateView(plateModel: LicensePlateViewModel(with: dc, in: dataStore))
-                LicensePlateView(plateModel: LicensePlateViewModel(with: wi, in: dataStore))
-                LicensePlateView(plateModel: LicensePlateViewModel(with: il, in: dataStore))
+                LicensePlateView(plateModel: sc, appModel: appModel)
+                LicensePlateView(plateModel: ma, appModel: appModel)
+                LicensePlateView(plateModel: la, appModel: appModel)
+                LicensePlateView(plateModel: dc, appModel: appModel)
+                LicensePlateView(plateModel: wi, appModel: appModel)
+                LicensePlateView(plateModel: il, appModel: appModel)
             }
             .preferredColorScheme(.light)
-            .previewDevice(PreviewDevice.init(stringLiteral: "iPhone SE"))
+            .previewDevice(PreviewDevice.init(stringLiteral: "iPhone SE (3rd generation)"))
             VStack {
-                LicensePlateView(plateModel: LicensePlateViewModel(with: sc, in: dataStore))
-                LicensePlateView(plateModel: LicensePlateViewModel(with: ma, in: dataStore))
-                LicensePlateView(plateModel: LicensePlateViewModel(with: la, in: dataStore))
-                LicensePlateView(plateModel: LicensePlateViewModel(with: dc, in: dataStore))
-                LicensePlateView(plateModel: LicensePlateViewModel(with: wi, in: dataStore))
-                LicensePlateView(plateModel: LicensePlateViewModel(with: il, in: dataStore))
+                LicensePlateView(plateModel: sc, appModel: appModel)
+                LicensePlateView(plateModel: ma, appModel: appModel)
+                LicensePlateView(plateModel: la, appModel: appModel)
+                LicensePlateView(plateModel: dc, appModel: appModel)
+                LicensePlateView(plateModel: wi, appModel: appModel)
+                LicensePlateView(plateModel: il, appModel: appModel)
             }
             .preferredColorScheme(.dark)
             .previewDevice(PreviewDevice.init(stringLiteral: "iPhone 12 Pro"))

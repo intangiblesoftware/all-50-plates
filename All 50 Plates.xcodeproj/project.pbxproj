@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3832604C26F8F8390070A692 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3832604B26F8F8390070A692 /* Constants.swift */; };
-		387A068A27E93DA4009443CB /* LicensePlateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A068927E93DA4009443CB /* LicensePlateListViewModel.swift */; };
-		387A068C27E93DB1009443CB /* LicensePlateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A068B27E93DB1009443CB /* LicensePlateViewModel.swift */; };
+		38667F0C29CD174D007A118D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38667F0B29CD174D007A118D /* SettingsView.swift */; };
+		387A068A27E93DA4009443CB /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A068927E93DA4009443CB /* AppModel.swift */; };
 		387A068E27E9442D009443CB /* MockDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A068D27E9442D009443CB /* MockDataStore.swift */; };
 		38D0A9AD26FBB2A30039D7CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38FB940126E429BD0057F367 /* Assets.xcassets */; };
 		38D0A9AF26FD0C800039D7CA /* RemainingPlatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0A9AE26FD0C800039D7CA /* RemainingPlatesView.swift */; };
@@ -17,7 +17,7 @@
 		38FB940026E429BC0057F367 /* LicensePlateListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB93FF26E429BC0057F367 /* LicensePlateListView.swift */; };
 		38FB940526E429BD0057F367 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38FB940426E429BD0057F367 /* Preview Assets.xcassets */; };
 		38FB940D26E429FF0057F367 /* plates.plist in Resources */ = {isa = PBXBuildFile; fileRef = 38FB940C26E429FF0057F367 /* plates.plist */; };
-		38FB940F26E434000057F367 /* LicensePlate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB940E26E434000057F367 /* LicensePlate.swift */; };
+		38FB940F26E434000057F367 /* LicensePlateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB940E26E434000057F367 /* LicensePlateModel.swift */; };
 		38FB941926E57BFF0057F367 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB941826E57BFF0057F367 /* DataStore.swift */; };
 		38FB941B26E588620057F367 /* LicensePlateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB941A26E588620057F367 /* LicensePlateView.swift */; };
 /* End PBXBuildFile section */
@@ -25,8 +25,8 @@
 /* Begin PBXFileReference section */
 		3832604B26F8F8390070A692 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		38415D3928232282002A03BF /* All 50 Plates.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "All 50 Plates.entitlements"; sourceTree = "<group>"; };
-		387A068927E93DA4009443CB /* LicensePlateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateListViewModel.swift; sourceTree = "<group>"; };
-		387A068B27E93DB1009443CB /* LicensePlateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateViewModel.swift; sourceTree = "<group>"; };
+		38667F0B29CD174D007A118D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		387A068927E93DA4009443CB /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		387A068D27E9442D009443CB /* MockDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataStore.swift; sourceTree = "<group>"; };
 		38D0A9AE26FD0C800039D7CA /* RemainingPlatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingPlatesView.swift; sourceTree = "<group>"; };
 		38FB93FA26E429BC0057F367 /* All 50 Plates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "All 50 Plates.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,7 +36,7 @@
 		38FB940426E429BD0057F367 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		38FB940626E429BD0057F367 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38FB940C26E429FF0057F367 /* plates.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = plates.plist; sourceTree = "<group>"; };
-		38FB940E26E434000057F367 /* LicensePlate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlate.swift; sourceTree = "<group>"; };
+		38FB940E26E434000057F367 /* LicensePlateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateModel.swift; sourceTree = "<group>"; };
 		38FB941826E57BFF0057F367 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		38FB941A26E588620057F367 /* LicensePlateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,25 +52,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		387A069127EA1EF2009443CB /* LicensePlateList */ = {
-			isa = PBXGroup;
-			children = (
-				387A068927E93DA4009443CB /* LicensePlateListViewModel.swift */,
-				38FB93FF26E429BC0057F367 /* LicensePlateListView.swift */,
-				38D0A9AE26FD0C800039D7CA /* RemainingPlatesView.swift */,
-			);
-			path = LicensePlateList;
-			sourceTree = "<group>";
-		};
-		387A069227EA1F10009443CB /* LicensePlate */ = {
-			isa = PBXGroup;
-			children = (
-				38FB941A26E588620057F367 /* LicensePlateView.swift */,
-				387A068B27E93DB1009443CB /* LicensePlateViewModel.swift */,
-			);
-			path = LicensePlate;
-			sourceTree = "<group>";
-		};
 		389760F9298DC6BD00D1E236 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,10 +82,10 @@
 			children = (
 				38415D3928232282002A03BF /* All 50 Plates.entitlements */,
 				38FB941026E435980057F367 /* App */,
-				38FB941326E436010057F367 /* Resources */,
-				38FB941226E435E10057F367 /* Views */,
 				389760F9298DC6BD00D1E236 /* Repositories */,
 				38FB941126E435B40057F367 /* Models */,
+				38FB941226E435E10057F367 /* Views */,
+				38FB941326E436010057F367 /* Resources */,
 				38FB940326E429BD0057F367 /* Preview Content */,
 			);
 			path = "All 50 Plates";
@@ -131,7 +112,8 @@
 		38FB941126E435B40057F367 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				38FB940E26E434000057F367 /* LicensePlate.swift */,
+				387A068927E93DA4009443CB /* AppModel.swift */,
+				38FB940E26E434000057F367 /* LicensePlateModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -139,8 +121,10 @@
 		38FB941226E435E10057F367 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				387A069127EA1EF2009443CB /* LicensePlateList */,
-				387A069227EA1F10009443CB /* LicensePlate */,
+				38FB93FF26E429BC0057F367 /* LicensePlateListView.swift */,
+				38D0A9AE26FD0C800039D7CA /* RemainingPlatesView.swift */,
+				38FB941A26E588620057F367 /* LicensePlateView.swift */,
+				38667F0B29CD174D007A118D /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -225,15 +209,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				38FB941B26E588620057F367 /* LicensePlateView.swift in Sources */,
-				387A068C27E93DB1009443CB /* LicensePlateViewModel.swift in Sources */,
 				38FB940026E429BC0057F367 /* LicensePlateListView.swift in Sources */,
-				38FB940F26E434000057F367 /* LicensePlate.swift in Sources */,
-				387A068A27E93DA4009443CB /* LicensePlateListViewModel.swift in Sources */,
+				38FB940F26E434000057F367 /* LicensePlateModel.swift in Sources */,
+				387A068A27E93DA4009443CB /* AppModel.swift in Sources */,
 				387A068E27E9442D009443CB /* MockDataStore.swift in Sources */,
 				38FB93FE26E429BC0057F367 /* All_50_PlatesApp.swift in Sources */,
 				38D0A9AF26FD0C800039D7CA /* RemainingPlatesView.swift in Sources */,
 				38FB941926E57BFF0057F367 /* DataStore.swift in Sources */,
 				3832604C26F8F8390070A692 /* Constants.swift in Sources */,
+				38667F0C29CD174D007A118D /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,7 +352,9 @@
 				DEVELOPMENT_TEAM = CRBB3K29X3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "All 50 Plates/App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_CFBundleDisplayName = "All 50 Plates";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.kids-games";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -393,7 +379,9 @@
 				DEVELOPMENT_TEAM = CRBB3K29X3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "All 50 Plates/App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_CFBundleDisplayName = "All 50 Plates";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.kids-games";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

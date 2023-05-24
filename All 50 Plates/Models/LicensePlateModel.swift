@@ -1,5 +1,5 @@
 //
-//  StatePlate.swift
+//  LicensePlateModel.swift
 //  All 50 Plates
 //
 //  Created by Jim Dabrowski on 9/4/21.
@@ -8,17 +8,23 @@
 import Foundation
 
 /// A Struct representing a single state's license plate, whether it's been found and the date found, if any.
-struct LicensePlate: CustomDebugStringConvertible, Codable {
+struct LicensePlateModel: CustomDebugStringConvertible, Codable, Identifiable {
     
     // MARK: - Properties
-    let state: String
+    let state: String 
     let plate: String
-    let date: String?
-    let found: Bool
+    var date: String?
+    var found: Bool
     
     // Debug description
     var debugDescription: String {
         return "[State: \(state), Plate: \(plate), Date: \(date ?? "Not set"), Found: \(found)]\n"
+    }
+    
+    // Identifiable conformance
+    var id: String {
+        // Since image name is the 2-letter postal abbreviation, we can use that as an ID
+        plate
     }
     
     // MARK: - Codable
@@ -35,8 +41,8 @@ struct LicensePlate: CustomDebugStringConvertible, Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         state = try values.decode(String.self, forKey: .state)
         plate = try values.decode(String.self, forKey: .plate)
-        date = try values.decode(String.self, forKey: .date)
         found = try values.decode(Bool.self, forKey: .found)
+        date = try values.decode(String.self, forKey: .date)
     }
     
     /// Encodes a license plate to save to disk
@@ -47,6 +53,36 @@ struct LicensePlate: CustomDebugStringConvertible, Codable {
         try container.encode(plate, forKey: .plate)
         try container.encode(date, forKey: .date)
         try container.encode(found, forKey: .found)
+    }
+    
+    private mutating func updateDateFormat() {
+        // This is gonna be a bit weird.
+        // I have to store dates as string, and I want to store in ISO8601 format.
+        // But when I first created this, I didn't do that. I used my own dumb format.
+        // So now, I have to read in the date string from the plate and figure out
+        // which format it's in so I can convert it to an actual Date object.
+        // Then, I need to use that date object to re-create a string that's
+        // properly formatted for the user's current locale, cause I want to be
+        // supportive of that sort of thing.
+        let oldDateFormatter = DateFormatter()
+        oldDateFormatter.dateFormat = "MMMM d, yyyy"
+        
+        if let plateDateString = date {
+            var dateFound = oldDateFormatter.date(from: plateDateString)
+            
+            if dateFound == nil {
+                // Old style failed, so let's try ISO8601 formatting instead
+                let isoDateFormatter = ISO8601DateFormatter()
+                //isoDateFormatter.formatOptions = .withFullDate
+                dateFound = isoDateFormatter.date(from: plateDateString)
+            }
+            
+            // So now, we have a dateFound (or not)
+            if let dateFound = dateFound {
+                let newDateFormatter = ISO8601DateFormatter()
+                date = newDateFormatter.string(from: dateFound)
+            }
+        }
     }
     
     // MARK: - Lifecycle
@@ -61,5 +97,6 @@ struct LicensePlate: CustomDebugStringConvertible, Codable {
         self.plate = plate
         self.date = date
         self.found = found
-    }
+        self.updateDateFormat()
+    }    
 }

@@ -8,18 +8,20 @@
 import Foundation
 
 class MockDataStore: LicensePlateStoreProtocol {
-    func fetch() -> [LicensePlate] {
+    // Creating some mock data that doesn't always conform to the way the data should be stored.
+    // Doing this to make sure I handle possible odd states and the old way I used to store dates. 
+    func fetch() -> [LicensePlateModel] {
         [
-            LicensePlate(state: "South Carolina", plate: "SC", found: true, date: "September 5, 2021"),
-            LicensePlate(state: "Massachusetts", plate: "MA", found: false, date: "December 31, 2021"),
-            LicensePlate(state: "Louisianna", plate: "LA", found: true, date:""),
-            LicensePlate(state: "Washington D.C.", plate: "DC", found: false, date:""),
-            LicensePlate(state: "Wisconsin", plate: "WI", found: true, date: "2022-01-27"),
-            LicensePlate(state: "Illinois", plate: "IL", found: false, date: "2022-03-26")
+            LicensePlateModel(state: "South Carolina", plate: "SC", found: true, date: "September 5, 2021"),
+            LicensePlateModel(state: "Massachusetts", plate: "MA", found: true, date: "December 31, 2021"),
+            LicensePlateModel(state: "Louisianna", plate: "LA", found: true, date:""),
+            LicensePlateModel(state: "Washington D.C.", plate: "DC", found: true, date:""),
+            LicensePlateModel(state: "Wisconsin", plate: "WI", found: true, date: "2022-01-27T07:00:00Z"),
+            LicensePlateModel(state: "Illinois", plate: "IL", found: true, date: "2022-03-26T07:00:00Z")
         ]
     }
     
-    func store(plates: [LicensePlate]) {
+    func store(plates: [LicensePlateModel]) {
         // The mock store doesn't save anything
     }
 }
