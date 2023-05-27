@@ -8,11 +8,26 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @ObservedObject var model: AppModel
+    @Binding var isShowing: Bool
+    
+    @State private var alertIsShowing: Bool = false
+    
     var body: some View {
         VStack(alignment: .center) {
+            HStack {
+                Spacer()
+                Button {
+                    isShowing = false
+                } label: {
+                    Text("Done")
+                }
+                .padding([.trailing, .top], 16)
+            }
+
             Spacer()
             Button {
-                
+                alertIsShowing = true
             } label: {
                 Text("Reset Game?").foregroundColor(.white).fontWeight(.bold)
             }.padding()
@@ -26,14 +41,28 @@ struct SettingsView: View {
                         imageName: "intangibleLogo",
                         companyName: "Intangible Software",
                         companyLink: "https://intangiblesoftware.com")
-            Spacer()
-        }
-    }
-}
+            CompanyView(title: "App UX/UI designed\nby Eric Ziegler",
+                        imageName: "ezAppsLogo",
+                        companyName: "ericZ apps",
+                        companyLink: "https://ericzapps.com")
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
+        }.alert("Reset Game?", isPresented: $alertIsShowing) {
+            Button(role: .destructive) {
+                model.reset()
+                alertIsShowing = false
+                isShowing = false
+            } label: {
+                Text("Reset")
+            }
+            Button(role: .cancel) {
+                alertIsShowing = false
+            } label: {
+                Text("Cancel")
+            }
+        } message: {
+            Text("This will reset the game back to the start. Are you sure you want to do this?")
+        }
+
     }
 }
 
@@ -46,17 +75,29 @@ struct CompanyView: View {
     var body: some View {
         Text(title)
             .font(.body)
+            .foregroundColor(Color("MainText"))
             .multilineTextAlignment(.center)
             .padding([.leading, .trailing])
         Image(imageName)
             .resizable()
-            .frame(width: 75, height: 75)
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 50, height: 50)
         Text(companyName)
-            .font(.body).fontWeight(.bold)
-            .padding(.bottom)
+            .font(.body)
+            .fontWeight(.bold)
+            .foregroundColor(Color("MainText"))
+            .padding(.bottom, 4)
         Text(companyLink)
             .font(.body)
             .foregroundColor(Color("AccentColor"))
+            .padding(.bottom)
+    }
+}
 
+struct SettingsView_Previews: PreviewProvider {
+    static let appModel: AppModel = AppModel(dataStore: MockDataStore())
+    @State static var isShowing = true
+    static var previews: some View {
+        SettingsView(model: appModel, isShowing: $isShowing)
     }
 }

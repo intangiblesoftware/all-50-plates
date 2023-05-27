@@ -59,7 +59,7 @@ struct LicensePlateView: View {
                     appModel.tapped(plate: plateModel)
                 }
             }
-        }.background(Color("AppBackground"))
+        }
     }
     
     func foundDateString(_ date: Date?) -> String {

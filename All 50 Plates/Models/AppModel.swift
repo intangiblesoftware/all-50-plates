@@ -29,7 +29,6 @@ class AppModel: ObservableObject {
             refreshDisplayedPlates()
         }
     }
-    @Published var gameWon: Bool = false
 
     init(dataStore: LicensePlateStoreProtocol) {
         self.dataStore = dataStore
@@ -53,7 +52,6 @@ class AppModel: ObservableObject {
 
         refreshDisplayedPlates()
         updateCounts()
-        gameWon = numberRemaining <= 0
     }
     
     // MARK: - Private methods
@@ -98,7 +96,10 @@ class AppModel: ObservableObject {
     // MARK: - User Interaction
     public func reset() {
         // Resets the data model
-        print("Reset called.")
+        allPlates.removeAll(keepingCapacity: true)
+        allPlates = dataStore.fetch()
+        refreshDisplayedPlates()
+        updateCounts()
     }
     
     public func tapped(plate: LicensePlateModel) {
