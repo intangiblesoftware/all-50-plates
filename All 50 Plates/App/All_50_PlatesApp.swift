@@ -11,16 +11,13 @@ import UIKit
 @main
 struct All_50_PlatesApp: App {
     @Environment (\.scenePhase) var scenePhase
-    
-    //@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    
-    // Create the statePlate store and pass it along to the list view. 
-    @StateObject var statePlateStore: StatePlateStore = StatePlateStore()
+        
+    let appModel = AppModel(dataStore: DataStore())
 
     var body: some Scene {
         
-        WindowGroup {
-            StatePlateListView(statePlateStore: statePlateStore)
+        WindowGroup<LicensePlateListView> {
+            LicensePlateListView(model: appModel)
         }
         .onChange(of: scenePhase) { newPhase in
             switch newPhase {
@@ -31,28 +28,12 @@ struct All_50_PlatesApp: App {
                 // Don't need to do anything here either.
                 break
             case .inactive:
-                // However, here, I want to write any changes to the plist
-                statePlateStore.save()
+                // Let the app model know we're moving to the backgroud
+                appModel.moveToBackground()
+                break
             default:
                 print("Wow, some new scenePhase was introduced. Not sure what to do here now...")
             }
         }
     }
 }
-
-/*
-class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor(named: "AppBackground")
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor(named: "MainText")]
-        appearance.titleTextAttributes = [.foregroundColor: UIColor(named: "MainText")]
-
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        
-        return true
-    }
-}
- */
