@@ -27,6 +27,7 @@ class AppModel: ObservableObject {
     @Published var filterState: ListFilterState = .allPlates {
         didSet {
             refreshDisplayedPlates()
+            userDefaults.set(filterState.rawValue, forKey: Key.UserDefaults.listState)
         }
     }
 
