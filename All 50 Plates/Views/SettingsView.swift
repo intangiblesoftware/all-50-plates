@@ -41,11 +41,6 @@ struct SettingsView: View {
                         imageName: "intangibleLogo",
                         companyName: "Intangible Software",
                         companyLink: "https://intangiblesoftware.com")
-            CompanyView(title: "App UX/UI designed\nby Eric Ziegler",
-                        imageName: "ezAppsLogo",
-                        companyName: "ericZ apps",
-                        companyLink: "https://ericzapps.com")
-
         }.alert("Reset Game?", isPresented: $alertIsShowing) {
             Button(role: .destructive) {
                 model.reset()
@@ -87,10 +82,10 @@ struct CompanyView: View {
             .fontWeight(.bold)
             .foregroundColor(Color("MainText"))
             .padding(.bottom, 4)
-        Text(companyLink)
+        Link(companyLink, destination: URL(string: companyLink)!)
             .font(.body)
             .foregroundColor(Color("AccentColor"))
-            .padding(.bottom)
+            .padding(.bottom, 48)
     }
 }
 

@@ -10,6 +10,7 @@ import Foundation
 protocol LicensePlateStoreProtocol {
     func fetch() -> [LicensePlateModel]
     func store(plates: [LicensePlateModel]) -> Void
+    func reset() -> Void
 }
 
 /// A dumb data store that has 2 functions:
@@ -33,23 +34,23 @@ class DataStore: LicensePlateStoreProtocol {
     
     func fetch() -> [LicensePlateModel] {
         // First, we'll try to get the data from the saved file
-        if let path = pathToDocuments() {
-            if let stateXML = FileManager.default.contents(atPath: path) {
+        if let path = pathToSavedStatesFile() {
+            if let savedStates = FileManager.default.contents(atPath: path) {
                 // Hey, there were contents there, so let's try to decode them.
                 do {
-                    return try PropertyListDecoder().decode([LicensePlateModel].self, from: stateXML)
+                    return try PropertyListDecoder().decode([LicensePlateModel].self, from: savedStates)
                 } catch {
                     print("Error parsing saved states.plist file.")
                     print(error.localizedDescription)
                 }
             } else {
                 // There was no saved file in Documents, so go to main bundle
-                if let pathToMainBundle = pathToMainBundle() {
+                if let pathToDefaultStates = pathToDefaultDataFile() {
                     // We got the path to the resource
-                    if let stateXML = FileManager.default.contents(atPath: pathToMainBundle) {
+                    if let defaultStates = FileManager.default.contents(atPath: pathToDefaultStates) {
                         // Hey, there were contents there, so let's try to decode them.
                         do {
-                            return try PropertyListDecoder().decode([LicensePlateModel].self, from: stateXML)
+                            return try PropertyListDecoder().decode([LicensePlateModel].self, from: defaultStates)
                         } catch {
                             print("Error parsing states.plist resource.")
                             print(error.localizedDescription)
@@ -65,6 +66,17 @@ class DataStore: LicensePlateStoreProtocol {
         // So let's just give 'em a heaping plate of nothing.
         let errorState = LicensePlateModel(state: "No state data found", plate: "", found: false, date: "")
         return [errorState]
+    }
+    
+    func reset() {
+        if let path = pathToSavedStatesFile() {
+            do {
+                try FileManager.default.removeItem(atPath: path)
+            } catch {
+                print("Error deleting saved states file.")
+                print("Error: \(error)")
+            }
+        }
     }
     
     // MARK: - Private functionality
@@ -103,7 +115,7 @@ class DataStore: LicensePlateStoreProtocol {
     }
         
     // Returns the path to the states.plist in the app's document directory
-    func pathToDocuments() -> String? {
+    func pathToSavedStatesFile() -> String? {
         if let documentsDirectoryURL = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first {
             let savedFileURL = documentsDirectoryURL.appendingPathComponent(Key.ResourceName.statesPlist)
             return savedFileURL.path
@@ -114,7 +126,7 @@ class DataStore: LicensePlateStoreProtocol {
     }
     
     // Returns the path to the states.plist in the main bundle
-    func pathToMainBundle() -> String? {
+    func pathToDefaultDataFile() -> String? {
         Bundle.main.path(forResource: "plates", ofType: "plist")
     }    
 }

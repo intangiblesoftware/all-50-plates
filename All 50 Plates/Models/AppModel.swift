@@ -96,7 +96,7 @@ class AppModel: ObservableObject {
     // MARK: - User Interaction
     public func reset() {
         // Resets the data model
-        allPlates.removeAll(keepingCapacity: true)
+        dataStore.reset()
         allPlates = dataStore.fetch()
         refreshDisplayedPlates()
         updateCounts()
