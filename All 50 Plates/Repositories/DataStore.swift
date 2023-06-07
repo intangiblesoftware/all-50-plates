@@ -64,7 +64,7 @@ class DataStore: LicensePlateStoreProtocol {
         // If we got here, there was nothing in the saved file (or an error parsing it.
         // And nothing in the main bundle - which who knows how that happened.
         // So let's just give 'em a heaping plate of nothing.
-        let errorState = LicensePlateModel(state: "No state data found", plate: "", found: false, date: "")
+        let errorState = LicensePlateModel(state: "No license plate data found.", plate: "", found: false, date: "")
         return [errorState]
     }
     
