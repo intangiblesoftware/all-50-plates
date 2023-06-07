@@ -43,6 +43,8 @@ struct LicensePlateModel: CustomDebugStringConvertible, Codable, Identifiable {
         plate = try values.decode(String.self, forKey: .plate)
         found = try values.decode(Bool.self, forKey: .found)
         date = try values.decode(String.self, forKey: .date)
+        
+        self.updateDateFormat()
     }
     
     /// Encodes a license plate to save to disk
