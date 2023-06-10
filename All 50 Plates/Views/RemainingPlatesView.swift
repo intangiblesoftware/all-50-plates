@@ -8,30 +8,33 @@
 import SwiftUI
 
 struct RemainingPlatesView: View {
-    @Binding var numberRemaining: Int
-    @Binding var platesToView: ListState
+    var numberOfPlates: Int
+    var numberRemaining: Int
+    
+    @Binding var platesToView: ListFilterState
     
     var body: some View {
-        VStack {
-            Picker("Plates", selection: $platesToView) {
-                Text("All Plates").tag(ListState.allPlates)
-                Text("Left to Find").tag(ListState.notFound)
-                Text("Found").tag(ListState.found)
-            }.pickerStyle(SegmentedPickerStyle())
-                .padding()
-                .foregroundColor(Color("MainText"))
-            Text(message())
-                .foregroundColor(Color("MainText"))
-                .fixedSize(horizontal: false, vertical: true)
-                .multilineTextAlignment(.center)
-                .padding(.bottom)
-                .transition(AnyTransition.opacity.animation(.easeInOut))
-        }.background(Color("AppBackground"))
+            VStack {
+                Picker("Plates", selection: $platesToView) {
+                    Text("All Plates").tag(ListFilterState.allPlates)
+                    Text("Left to Find").tag(ListFilterState.notFound)
+                    Text("Found").tag(ListFilterState.found)
+                }.pickerStyle(SegmentedPickerStyle())
+                    .padding()
+                    //.foregroundColor(Color("MainText"))
+                    .tint(Color("FoundText"))
+                Text(message())
+                    .foregroundColor(Color("MainText"))
+                    .fixedSize(horizontal: false, vertical: true)
+                    .multilineTextAlignment(.center)
+                    .transition(AnyTransition.opacity.animation(.easeInOut))
+            }
     }
     
     func message() -> String {
         var message = ""
-        let numberFound = 51 - numberRemaining
+        let numberFound = numberOfPlates - numberRemaining
+        
         switch platesToView {
         case .allPlates:
             switch numberRemaining {
@@ -42,8 +45,8 @@ struct RemainingPlatesView: View {
 
         case .found:
             switch numberRemaining {
-            case 0: message = "You found all 51 plates! Congratulations!"
-            case 51: message = "You haven't found any so far."
+            case 0: message = "You found all \(numberOfPlates) plates! Congratulations!"
+            case numberOfPlates: message = "You haven't found any so far."
             default: message = "You found \(numberFound) so far."
             }
 
@@ -59,39 +62,46 @@ struct RemainingPlatesView: View {
 }
 
 struct RemainingPlatesView_Previews: PreviewProvider {
-    static private var allRemaining = Binding.constant(51)
-    static private var noneRemaining = Binding.constant(0)
-    static private var oneRemaining = Binding.constant(1)
-    static private var someRemaining = Binding.constant(21)
-    static private var allPlates = Binding.constant(ListState.allPlates)
-    static private var leftToFind = Binding.constant(ListState.notFound)
-    static private var found = Binding.constant(ListState.found)
+    static private var numberOfPlates = 51
+    static private var allRemaining = 51
+    static private var oneRemaining = 1
+    static private var someRemaining = 21
+    static private var noneRemaining = 0
+    static private var allPlates = Binding.constant(ListFilterState.allPlates)
+    static private var leftToFind = Binding.constant(ListFilterState.notFound)
+    static private var found = Binding.constant(ListFilterState.found)
     
     static var previews: some View {
         VStack {
             Group {
-                Text("All plates to Find")
-                RemainingPlatesView(numberRemaining: allRemaining, platesToView: allPlates).previewLayout(.sizeThatFits)
-                RemainingPlatesView(numberRemaining: allRemaining, platesToView: leftToFind).previewLayout(.sizeThatFits)
-                RemainingPlatesView(numberRemaining: allRemaining, platesToView: found).previewLayout(.sizeThatFits)
+                Text("All Remaining")
+                RemainingPlatesView(numberOfPlates: numberOfPlates, numberRemaining: allRemaining, platesToView: allPlates).previewLayout(.sizeThatFits)
+                RemainingPlatesView(numberOfPlates: numberOfPlates, numberRemaining: allRemaining, platesToView: leftToFind).previewLayout(.sizeThatFits)
+                RemainingPlatesView(numberOfPlates: numberOfPlates, numberRemaining: allRemaining, platesToView: found).previewLayout(.sizeThatFits)
             }.previewLayout(.sizeThatFits)
+        }
+        VStack{
             Group {
-                Text("None remaining")
-                RemainingPlatesView(numberRemaining: noneRemaining, platesToView: allPlates).previewLayout(.sizeThatFits)
-                RemainingPlatesView(numberRemaining: noneRemaining, platesToView: leftToFind).previewLayout(.sizeThatFits)
-                RemainingPlatesView(numberRemaining: noneRemaining, platesToView: found).previewLayout(.sizeThatFits)
+                Text("None Remaining")
+                RemainingPlatesView(numberOfPlates: numberOfPlates, numberRemaining: noneRemaining, platesToView: allPlates).previewLayout(.sizeThatFits)
+                RemainingPlatesView(numberOfPlates: numberOfPlates, numberRemaining: noneRemaining, platesToView: leftToFind).previewLayout(.sizeThatFits)
+                RemainingPlatesView(numberOfPlates: numberOfPlates, numberRemaining: noneRemaining, platesToView: found).previewLayout(.sizeThatFits)
             }.previewLayout(.sizeThatFits)
+        }
+        VStack{
             Group {
                 Text("One Remaining")
-                RemainingPlatesView(numberRemaining: oneRemaining, platesToView: allPlates).previewLayout(.sizeThatFits)
-                RemainingPlatesView(numberRemaining: oneRemaining, platesToView: leftToFind).previewLayout(.sizeThatFits)
-                RemainingPlatesView(numberRemaining: oneRemaining, platesToView: found).previewLayout(.sizeThatFits)
+                RemainingPlatesView(numberOfPlates: numberOfPlates, numberRemaining: oneRemaining, platesToView: allPlates).previewLayout(.sizeThatFits)
+                RemainingPlatesView(numberOfPlates: numberOfPlates, numberRemaining: oneRemaining, platesToView: leftToFind).previewLayout(.sizeThatFits)
+                RemainingPlatesView(numberOfPlates: numberOfPlates, numberRemaining: oneRemaining, platesToView: found).previewLayout(.sizeThatFits)
             }.previewLayout(.sizeThatFits)
+        }
+        VStack {
             Group {
-                Text("Some remaining")
-                RemainingPlatesView(numberRemaining: someRemaining, platesToView: allPlates).previewLayout(.sizeThatFits)
-                RemainingPlatesView(numberRemaining: someRemaining, platesToView: leftToFind).previewLayout(.sizeThatFits)
-                RemainingPlatesView(numberRemaining: someRemaining, platesToView: found).previewLayout(.sizeThatFits)
+                Text("Some Remaining")
+                RemainingPlatesView(numberOfPlates: numberOfPlates, numberRemaining: someRemaining, platesToView: allPlates).previewLayout(.sizeThatFits)
+                RemainingPlatesView(numberOfPlates: numberOfPlates, numberRemaining: someRemaining, platesToView: leftToFind).previewLayout(.sizeThatFits)
+                RemainingPlatesView(numberOfPlates: numberOfPlates, numberRemaining: someRemaining, platesToView: found).previewLayout(.sizeThatFits)
             }.previewLayout(.sizeThatFits)
         }.previewLayout(.sizeThatFits)
     }
