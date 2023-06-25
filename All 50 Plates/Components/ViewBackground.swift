@@ -7,19 +7,18 @@
 
 import SwiftUI
 
+/// Place any view inside ViewBackground to control the background color.
+/// This is usually at the top most level of your View's body.
+/// Note: If a view that has its own background set (like a list), you will need to explicitly hide that view's background.
 struct ViewBackground<Content: View>: View {
+    var color: Color = Color("AppBackground")
     @ViewBuilder var content: () -> Content
-    var overlay: (() -> AnyView?)?
     
     var body: some View {
         ZStack {
-            Color("AppBackground")
+            color
                 .edgesIgnoringSafeArea(.all)
             HStack(content: content)
-            if let overlay = overlay?() {
-                overlay
-                    .edgesIgnoringSafeArea(.all)
-            }
         }
     }
 }
@@ -28,7 +27,10 @@ struct ViewBackground_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ViewBackground {
-                Text("View Background Preview")
+                List {
+                    Text("View Background Preview")
+                }
+                .scrollContentBackground(.hidden)
             }
             .preferredColorScheme(.light)
             .previewDisplayName("Light Mode")

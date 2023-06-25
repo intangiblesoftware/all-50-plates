@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A convenience view that combines a VStack and a ScrollView.
 struct VScrollView<Content: View>: View {
     var content: () -> Content
     var alignment: HorizontalAlignment

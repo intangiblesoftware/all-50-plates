@@ -22,6 +22,7 @@
 		38FB941B26E588620057F367 /* LicensePlateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB941A26E588620057F367 /* LicensePlateView.swift */; };
 		7845FD1D2A48AF6D007C2027 /* ViewBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7845FD1C2A48AF6D007C2027 /* ViewBackground.swift */; };
 		7845FD1F2A48B02A007C2027 /* VScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7845FD1E2A48B02A007C2027 /* VScrollView.swift */; };
+		7845FD212A48B143007C2027 /* DeveloperToolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7845FD202A48B143007C2027 /* DeveloperToolsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		38FB941A26E588620057F367 /* LicensePlateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateView.swift; sourceTree = "<group>"; };
 		7845FD1C2A48AF6D007C2027 /* ViewBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBackground.swift; sourceTree = "<group>"; };
 		7845FD1E2A48B02A007C2027 /* VScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VScrollView.swift; sourceTree = "<group>"; };
+		7845FD202A48B143007C2027 /* DeveloperToolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperToolsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				38D0A9AE26FD0C800039D7CA /* RemainingPlatesView.swift */,
 				38FB941A26E588620057F367 /* LicensePlateView.swift */,
 				38667F0B29CD174D007A118D /* SettingsView.swift */,
+				7845FD202A48B143007C2027 /* DeveloperToolsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 			files = (
 				7845FD1F2A48B02A007C2027 /* VScrollView.swift in Sources */,
 				38FB941B26E588620057F367 /* LicensePlateView.swift in Sources */,
+				7845FD212A48B143007C2027 /* DeveloperToolsView.swift in Sources */,
 				38FB940026E429BC0057F367 /* LicensePlateListView.swift in Sources */,
 				38FB940F26E434000057F367 /* LicensePlateModel.swift in Sources */,
 				387A068A27E93DA4009443CB /* AppModel.swift in Sources */,

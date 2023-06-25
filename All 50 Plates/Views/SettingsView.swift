@@ -14,33 +14,39 @@ struct SettingsView: View {
     @State private var alertIsShowing: Bool = false
     
     var body: some View {
-        VStack(alignment: .center) {
-            HStack {
+        NavigationStack {
+            VStack(alignment: .center) {
+                HStack {
+                    Spacer()
+                    Button {
+                        isShowing = false
+                    } label: {
+                        Text("Done")
+                    }
+                    .padding([.trailing, .top], 16)
+                }
+                
                 Spacer()
                 Button {
-                    isShowing = false
+                    alertIsShowing = true
                 } label: {
-                    Text("Done")
-                }
-                .padding([.trailing, .top], 16)
+                    Text("Reset Game?").foregroundColor(.white).fontWeight(.bold)
+                }.padding()
+                    .background(Color("ButtonColor"))
+                    .clipShape(Capsule())
+                
+                Text("This will reset the game back to the beginning, unfinding all your found license plates.").font(.caption).multilineTextAlignment(.center)
+                    .padding([.leading, .trailing], 40)
+                Spacer()
+                CompanyView(title: "App created & coded\nby Jim Dabrowski",
+                            imageName: "intangibleLogo",
+                            companyName: "Intangible Software",
+                            companyLink: "https://intangiblesoftware.com")
+                
+                #if DEBUG
+                renderDeveloperTools()
+                #endif
             }
-
-            Spacer()
-            Button {
-                alertIsShowing = true
-            } label: {
-                Text("Reset Game?").foregroundColor(.white).fontWeight(.bold)
-            }.padding()
-                .background(Color("ButtonColor"))
-                .clipShape(Capsule())
-
-            Text("This will reset the game back to the beginning, unfinding all your found license plates.").font(.caption).multilineTextAlignment(.center)
-                .padding([.leading, .trailing], 40)
-            Spacer()
-            CompanyView(title: "App created & coded\nby Jim Dabrowski",
-                        imageName: "intangibleLogo",
-                        companyName: "Intangible Software",
-                        companyLink: "https://intangiblesoftware.com")
         }.alert("Reset Game?", isPresented: $alertIsShowing) {
             Button(role: .destructive) {
                 model.reset()
@@ -58,6 +64,15 @@ struct SettingsView: View {
             Text("This will reset the game back to the start. Are you sure you want to do this?")
         }
 
+    }
+    
+    @ViewBuilder private func renderDeveloperTools() -> some View {
+        NavigationLink("Developer Tools ⚒️") {
+            DeveloperToolsView()
+        }
+        .buttonStyle(.borderedProminent)
+        .tint(.blue)
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 }
 
