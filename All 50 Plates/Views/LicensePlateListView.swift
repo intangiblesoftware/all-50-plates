@@ -37,7 +37,7 @@ struct LicensePlateListView: View {
                 }
                 .overlay(Group {
                     if model.displayedPlates.isEmpty {
-                        EmptyView(filterState: model.filterState)
+                        EmptyListView(filterState: model.filterState)
                     }
                 })
                 .sheet(isPresented: $settingsSheetIsShowing) {
@@ -51,7 +51,7 @@ struct LicensePlateListView: View {
     }
 }
 
-struct EmptyView: View {
+struct EmptyListView: View {
     let filterState: ListFilterState
     var body: some View {
         ZStack {
