@@ -10,24 +10,27 @@ import SwiftUI
 struct DeveloperToolsView: View {
     var body: some View {
         ViewBackground {
-            renderColorCells()
+            List {
+                renderColorCells()
+                renderFontCells()
+            }
+            .scrollContentBackground(.hidden)
         }
         .navigationTitle("Developer Tools")
     }
     
+    // MARK: - Colors
+    
     @ViewBuilder private func renderColorCells() -> some View {
-        List {
-            Section("App Colors") {
-                renderColorCell(Color.accentColor, named: "accentColor")
-                renderColorCell(Color.appDark, named: "appDark")
-                renderColorCell(Color.appLight, named: "appLight")
-                renderColorCell(Color.appBackground, named: "appBackground")
-                renderColorCell(Color.appCardBackground, named: "appCardBackground")
-                renderColorCell(Color.appText, named: "appText")
-                renderColorCell(Color.appSubtext, named: "appSubtext")
-            }
+        Section("App Colors") {
+            renderColorCell(Color.accentColor, named: "accentColor")
+            renderColorCell(Color.appDark, named: "appDark")
+            renderColorCell(Color.appLight, named: "appLight")
+            renderColorCell(Color.appBackground, named: "appBackground")
+            renderColorCell(Color.appCardBackground, named: "appCardBackground")
+            renderColorCell(Color.appText, named: "appText")
+            renderColorCell(Color.appSubtext, named: "appSubtext")
         }
-        .scrollContentBackground(.hidden)
     }
     
     @ViewBuilder private func renderColorCell(_ color: Color, named name: String) -> some View {
@@ -44,6 +47,30 @@ struct DeveloperToolsView: View {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(Color.gray, lineWidth: 1)
                 )
+        }
+    }
+    
+    // MARK: - Fonts
+    
+    @ViewBuilder private func renderFontCells() -> some View {
+        Section("App Fonts") {
+            renderFontCell(Font.appLargeTitle, named: "appLargeTitle", shouldUppercase: true)
+            renderFontCell(Font.appTitle, named: "appTitle", shouldUppercase: true)
+            renderFontCell(Font.appAction, named: "appTitle", shouldUppercase: true)
+            renderFontCell(Font.appText, named: "appText")
+            renderFontCell(Font.appControl, named: "appControl")
+            renderFontCell(Font.appParagraph, named: "appParagraph")
+        }
+    }
+    
+    @ViewBuilder private func renderFontCell(_ font: Font, named name: String, shouldUppercase: Bool = false) -> some View {
+        HStack {
+            Text(name)
+                .fontWeight(.bold)
+            Spacer()
+            Text("Hello12")
+                .font(font)
+                .textCase(shouldUppercase ? .uppercase : .none)
         }
     }
 }
