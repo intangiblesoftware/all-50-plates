@@ -99,7 +99,7 @@ struct CompanyView: View {
             .padding(.bottom, 4)
         Link(companyLink, destination: URL(string: companyLink)!)
             .font(.body)
-            .foregroundColor(Color("AccentColor"))
+            .foregroundColor(Color("OldAccentColor"))
             .padding(.bottom, 48)
     }
 }
