@@ -13,6 +13,7 @@ struct DeveloperToolsView: View {
             List {
                 renderColorCells()
                 renderFontCells()
+                renderHapticsCells()
             }
             .scrollContentBackground(.hidden)
         }
@@ -73,6 +74,31 @@ struct DeveloperToolsView: View {
                 .textCase(shouldUppercase ? .uppercase : .none)
         }
     }
+    
+    // MARK: - Haptics
+    
+    @ViewBuilder private func renderHapticsCells() -> some View {
+        Section("Haptics") {
+            renderHapticsCell(.light, named: "Light")
+            renderHapticsCell(.strong, named: "Strong")
+        }
+    }
+    
+    @ViewBuilder private func renderHapticsCell(_ strength: Haptics.Strength, named name: String) -> some View {
+        Button(action: {
+            Haptics.playHaptic(strength: strength)
+        }) {
+            HStack {
+                Text(name)
+                    .fontWeight(.bold)
+                    .foregroundColor(.appText)
+                Spacer()
+                Text("(tap for demo)")
+                    .foregroundColor(.appText)
+            }
+        }
+    }
+    
 }
 
 struct DeveloperToolsView_Previews: PreviewProvider {
