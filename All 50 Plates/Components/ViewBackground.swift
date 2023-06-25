@@ -11,7 +11,7 @@ import SwiftUI
 /// This is usually at the top most level of your View's body.
 /// Note: If a view that has its own background set (like a list), you will need to explicitly hide that view's background.
 struct ViewBackground<Content: View>: View {
-    var color: Color = Color("AppBackground")
+    var color: Color = Color.appBackground
     @ViewBuilder var content: () -> Content
     
     var body: some View {

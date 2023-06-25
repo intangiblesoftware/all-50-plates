@@ -64,12 +64,12 @@ struct EmptyListView: View {
                         .resizable()
                         .padding(16)
                         .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(Color("AccentColor"), Color("ButtonColor"))
+                        .foregroundStyle(Color("OldAccentColor"), Color("ButtonColor"))
                 case .notFound:
                     Image(systemName: "party.popper.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(Color("AccentColor"), Color("ButtonColor"))
+                        .foregroundStyle(Color("OldAccentColor"), Color("ButtonColor"))
                         .padding()
             }
         }
