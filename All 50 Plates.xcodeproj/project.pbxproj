@@ -26,6 +26,7 @@
 		7845FD242A48BE0D007C2027 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7845FD232A48BE0D007C2027 /* ColorUtils.swift */; };
 		7845FD262A48BE1F007C2027 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7845FD252A48BE1F007C2027 /* Colors.xcassets */; };
 		7845FD282A48C3DF007C2027 /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7845FD272A48C3DF007C2027 /* FontUtils.swift */; };
+		7845FD2A2A48C763007C2027 /* HapticUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7845FD292A48C763007C2027 /* HapticUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		7845FD232A48BE0D007C2027 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 		7845FD252A48BE1F007C2027 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		7845FD272A48C3DF007C2027 /* FontUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
+		7845FD292A48C763007C2027 /* HapticUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 			children = (
 				7845FD232A48BE0D007C2027 /* ColorUtils.swift */,
 				7845FD272A48C3DF007C2027 /* FontUtils.swift */,
+				7845FD292A48C763007C2027 /* HapticUtils.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				7845FD212A48B143007C2027 /* DeveloperToolsView.swift in Sources */,
 				38FB940026E429BC0057F367 /* LicensePlateListView.swift in Sources */,
 				38FB940F26E434000057F367 /* LicensePlateModel.swift in Sources */,
+				7845FD2A2A48C763007C2027 /* HapticUtils.swift in Sources */,
 				387A068A27E93DA4009443CB /* AppModel.swift in Sources */,
 				7845FD282A48C3DF007C2027 /* FontUtils.swift in Sources */,
 				387A068E27E9442D009443CB /* MockDataStore.swift in Sources */,
