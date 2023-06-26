@@ -43,12 +43,12 @@ struct LicensePlateView: View {
                 if plateModel.found {
                     Image(systemName: "checkmark.seal.fill")
                         .resizable()
-                        .foregroundColor(Color("AccentColor"))
+                        .foregroundColor(Color("OldAccentColor"))
                         .frame(width: 36, height: 36)
                 } else {
                     Image(systemName: "checkmark.seal")
                         .resizable()
-                        .foregroundColor(Color("AccentColor"))
+                        .foregroundColor(Color("OldAccentColor"))
                         .frame(width: 36, height: 36)
                 }
             }

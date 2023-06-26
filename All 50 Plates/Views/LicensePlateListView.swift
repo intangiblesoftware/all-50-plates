@@ -37,7 +37,7 @@ struct LicensePlateListView: View {
                 }
                 .overlay(Group {
                     if model.displayedPlates.isEmpty {
-                        EmptyView(filterState: model.filterState)
+                        EmptyListView(filterState: model.filterState)
                     }
                 })
                 .sheet(isPresented: $settingsSheetIsShowing) {
@@ -51,7 +51,7 @@ struct LicensePlateListView: View {
     }
 }
 
-struct EmptyView: View {
+struct EmptyListView: View {
     let filterState: ListFilterState
     var body: some View {
         ZStack {
@@ -64,12 +64,12 @@ struct EmptyView: View {
                         .resizable()
                         .padding(16)
                         .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(Color("AccentColor"), Color("ButtonColor"))
+                        .foregroundStyle(Color("OldAccentColor"), Color("ButtonColor"))
                 case .notFound:
                     Image(systemName: "party.popper.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(Color("AccentColor"), Color("ButtonColor"))
+                        .foregroundStyle(Color("OldAccentColor"), Color("ButtonColor"))
                         .padding()
             }
         }
