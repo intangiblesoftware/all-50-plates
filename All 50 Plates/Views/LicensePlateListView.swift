@@ -41,7 +41,7 @@ struct LicensePlateListView: View {
                     }
                 })
                 .sheet(isPresented: $settingsSheetIsShowing) {
-                    SettingsView(model: model, isShowing: $settingsSheetIsShowing)
+                    AboutView(model: model, isShowing: $settingsSheetIsShowing)
                 }
             RemainingPlatesView(numberOfPlates: model.totalPlates,
                                 numberRemaining: model.numberRemaining,
