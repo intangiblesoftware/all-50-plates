@@ -11,6 +11,7 @@ struct AboutView: View {
     @EnvironmentObject var model: AppModel
     
     @State var developerToolsShowing: Bool = false
+    @State var resetAlertIsShowing: Bool = false
     
     var body: some View {
         ViewBackground(color: .appBackground) {
@@ -25,53 +26,41 @@ struct AboutView: View {
                     }
                 }.padding([.leading, .trailing, .top], 16.0).background(Color.appDark)
                 VStack {
-                    List {
-                        AboutListCell(title: "Version", value: "1.2.0").listRowSeparatorTint(.appDark)
-                        .alignmentGuide(.listRowSeparatorLeading) { d in
-                            d[.leading]
-                        }.alignmentGuide(.listRowSeparatorTrailing) { d in
-                            d[.trailing]
-                        }.listRowSeparatorTint(.appDark)
-                        AboutListCell(title: "Author", value: "Jim Dabrowski").listRowSeparator(.hidden, edges: .bottom)
+                    ScrollView {
+                        List {
+                            AboutListCell(title: "Version", value: "1.2.0")
+                            AboutListCell(title: "Author", value: "Jim Dabrowski")
+                            AboutListCell(title: "Design", value: "Eric Ziegler")
+                        }.scrollContentBackground(.hidden)
+                            .frame(width: .infinity, height: 200)
+                        Text("Copyright © 2023").font(.appParagraph)
                         HStack {
-                            Spacer()
                             CompanyView(imageName: "intangibleLogo",
                                         companyName: "Intangible Software",
                                         companyLink: "https://intangiblesoftware.com",
                                         linkText: "intangiblesoftware.com")
                             Spacer()
-                        }.alignmentGuide(.listRowSeparatorLeading) { d in
-                            d[.leading]
-                        }.alignmentGuide(.listRowSeparatorTrailing) { d in
-                            d[.trailing]
-                        }.listRowSeparatorTint(.appDark)
-                        AboutListCell(title: "Design", value: "Eric Ziegler").listRowSeparator(.hidden, edges: .bottom)
-                        HStack {
-                            Spacer()
                             CompanyView(imageName: "lpSoftwareLogo",
                                         companyName: "Logical Pixels Design",
                                         companyLink: "https://logicalpixels.com",
                                         linkText: "logicalpixels.com")
-                            Spacer()
-                        }.alignmentGuide(.listRowSeparatorLeading) { d in
-                            d[.leading]
-                        }.alignmentGuide(.listRowSeparatorTrailing) { d in
-                            d[.trailing]
-                        }.listRowSeparatorTint(.appDark)
-                        HStack {
-                            Spacer()
-                            Text("Copyright © 2023").font(.appParagraph).foregroundColor(.appText)
-                            Spacer()
-                        }.listRowSeparator(.hidden, edges: .bottom)
-                    }.scrollContentBackground(.hidden)
+                        }.padding()
+                    }
                 }
+                Spacer()
                 Button {
-                    //model.reset()
+                    resetAlertIsShowing = true
                 } label: {
                     Text("Reset Game").font(.appAction).textCase(.uppercase).foregroundColor(.appText)
                 }.frame(width: 275.0, height: 55.0)
                     .background(Color("AccentColor"))
                     .clipShape(RoundedRectangle(cornerRadius: 16.0, style: .circular))
+                    .alert("Are you sure you want to reset your game?", isPresented: $resetAlertIsShowing) {
+                        Button("Reset", role: .destructive) {
+                            model.reset()
+                        }
+                        Button("Cancel", role: .cancel) {}
+                    }
                 Text("This will reset the game back to the beginning, unfinding all your found license plates.").font(.appParagraph).foregroundColor(.appText).multilineTextAlignment(.center).frame(maxWidth: 275)
                 Spacer()
 #if DEBUG
@@ -93,7 +82,7 @@ struct AboutView: View {
             } icon: {
                 Image(systemName: "wrench.and.screwdriver.fill")
             }
-
+            
         }
     }
     
