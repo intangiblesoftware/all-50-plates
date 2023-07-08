@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct LicensePlateView: View {
+    @EnvironmentObject var model: AppModel
+    
     // The license plate info to display
     let plateModel: LicensePlateModel
-    let appModel: AppModel
     
     var body: some View {
-        VStack {
             HStack {
                 Image(plateModel.plate)
                     .resizable()
@@ -21,56 +21,28 @@ struct LicensePlateView: View {
                     .frame(width: 125)
                     .cornerRadius(6.0)
                     .opacity(plateModel.found ? 0.5 : 1.0)
-                VStack(alignment: .leading) {
-                    Text(plateModel.state)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .allowsTightening(true)
-                        .multilineTextAlignment(.leading)
-                        .minimumScaleFactor(0.8)
-                        .lineLimit(correctLineLimit())
-                        .foregroundColor(plateModel.found ? Color("FoundText") : Color("MainText"))
-                        .truncationMode(.tail)
-                    if let plateDate = plateModel.date {
-                        let dateFound = ISO8601DateFormatter().date(from: plateDate)
-                        let dateString = foundDateString(dateFound)
-                        Text(dateString)
-                            .font(.footnote)
-                            .foregroundColor(plateModel.found ? Color("FoundText") : Color("MainText"))
-                    }
-                }
                 Spacer()
-                if plateModel.found {
-                    Image(systemName: "checkmark.seal.fill")
-                        .resizable()
-                        .foregroundColor(Color("OldAccentColor"))
-                        .frame(width: 36, height: 36)
-                } else {
-                    Image(systemName: "checkmark.seal")
-                        .resizable()
-                        .foregroundColor(Color("OldAccentColor"))
-                        .frame(width: 36, height: 36)
-                }
+                Text(plateModel.dateDisplay)
+                    .font(.appText)
+                    .foregroundColor(Color.appSubtext)
+                Spacer()
+                Image(systemName: plateModel.found ? "checkmark.circle.fill" : "checkmark.circle")
+                    .resizable()
+                    .foregroundColor(plateModel.found ? Color("AccentColor") : Color.appSubtext)
+                    .frame(width: 36, height: 36)
             }
+            .padding([.horizontal])
+            .padding([.vertical], 8.0)
+            .background(Color.appCardBackground).clipShape(RoundedRectangle(cornerRadius: 16.0))
             .frame(maxWidth: .infinity)
-            .padding(.horizontal)
-            .onTapGesture {
-                withAnimation {
-                    appModel.tapped(plate: plateModel)
-                }
-            }
-        }
+            .overlay(
+                RoundedRectangle(cornerRadius: 16.0)
+                    .stroke(lineWidth: 1.0)
+                    .foregroundColor(plateModel.found ? Color.accentColor : .appSubtext))
     }
     
     func foundDateString(_ date: Date?) -> String {
         date?.formatted(date: .long, time: .omitted) ?? ""
-    }
-    
-    // I want the UI to break when there are 2 words in the state name,
-    // but just shrink the text to fit when the name is too long to fit. 
-    func correctLineLimit() -> Int {
-        let wordCount = plateModel.state.split(separator: " ")
-        return wordCount.count > 1 ? 2 : 1
     }
 }
 
@@ -85,29 +57,15 @@ struct StateView_Previews: PreviewProvider {
     static var wi:LicensePlateModel = mockPlates[4]
     static var il:LicensePlateModel = mockPlates[5]
     static let appModel = AppModel(dataStore: MockDataStore())
-
+    
     static var previews: some View {
-        Group {
-            VStack {
-                LicensePlateView(plateModel: sc, appModel: appModel)
-                LicensePlateView(plateModel: ma, appModel: appModel)
-                LicensePlateView(plateModel: la, appModel: appModel)
-                LicensePlateView(plateModel: dc, appModel: appModel)
-                LicensePlateView(plateModel: wi, appModel: appModel)
-                LicensePlateView(plateModel: il, appModel: appModel)
-            }
-            .preferredColorScheme(.light)
-            .previewDevice(PreviewDevice.init(stringLiteral: "iPhone SE (3rd generation)"))
-            VStack {
-                LicensePlateView(plateModel: sc, appModel: appModel)
-                LicensePlateView(plateModel: ma, appModel: appModel)
-                LicensePlateView(plateModel: la, appModel: appModel)
-                LicensePlateView(plateModel: dc, appModel: appModel)
-                LicensePlateView(plateModel: wi, appModel: appModel)
-                LicensePlateView(plateModel: il, appModel: appModel)
-            }
-            .preferredColorScheme(.dark)
-            .previewDevice(PreviewDevice.init(stringLiteral: "iPhone 12 Pro"))
+        VStack(spacing: 24.0) {
+            LicensePlateView(plateModel: sc).environmentObject(appModel)
+            LicensePlateView(plateModel: ma).environmentObject(appModel)
+            LicensePlateView(plateModel: la).environmentObject(appModel)
+            LicensePlateView(plateModel: dc).environmentObject(appModel)
+            LicensePlateView(plateModel: wi).environmentObject(appModel)
+            LicensePlateView(plateModel: il).environmentObject(appModel)
         }
     }
 }

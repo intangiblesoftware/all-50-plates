@@ -42,12 +42,18 @@ struct VScrollView_Previews: PreviewProvider {
         return result
     }
     
+    static private var allPlates = Binding.constant(ListFilterState.allPlates)
+
     static var previews: some View {
-        VScrollView(spacing: 20) {
-            ForEach(texts, id: \.self) { text in
-                Text(text)
-                    .font(.body)
+        VStack {
+            VScrollView(spacing: 20) {
+                ForEach(texts, id: \.self) { text in
+                    Text(text)
+                        .font(.body)
+                }
             }
+            FilterSelectorView().environmentObject(AppModel(dataStore: MockDataStore()))
+                .frame(maxWidth: .infinity, maxHeight: 72.0)
         }
     }
 }
