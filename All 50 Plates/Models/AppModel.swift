@@ -30,6 +30,7 @@ class AppModel: ObservableObject {
             userDefaults.set(filterState.rawValue, forKey: Key.UserDefaults.listState)
         }
     }
+    @Published var aboutIsShowing: Bool = false
 
     init(dataStore: LicensePlateStoreProtocol) {
         self.dataStore = dataStore

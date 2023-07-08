@@ -25,21 +25,11 @@ struct ViewBackground<Content: View>: View {
 
 struct ViewBackground_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            ViewBackground {
-                List {
-                    Text("View Background Preview")
-                }
-                .scrollContentBackground(.hidden)
-            }
-            .preferredColorScheme(.light)
-            .previewDisplayName("Light Mode")
-            
-            ViewBackground {
+        ViewBackground {
+            List {
                 Text("View Background Preview")
             }
-            .preferredColorScheme(.dark)
-            .previewDisplayName("Dark Mode")
-        }
+            .scrollContentBackground(.hidden)
+        }.environmentObject(AppModel(dataStore: MockDataStore()))
     }
 }

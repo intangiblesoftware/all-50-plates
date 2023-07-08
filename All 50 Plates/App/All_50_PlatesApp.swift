@@ -12,12 +12,12 @@ import UIKit
 struct All_50_PlatesApp: App {
     @Environment (\.scenePhase) var scenePhase
         
-    let appModel = AppModel(dataStore: DataStore())
+    @StateObject var appModel = AppModel(dataStore: DataStore())
 
     var body: some Scene {
         
-        WindowGroup<LicensePlateListView> {
-            LicensePlateListView(model: appModel)
+        WindowGroup {
+            LicensePlateListView().environmentObject(appModel)
         }
         .onChange(of: scenePhase) { newPhase in
             switch newPhase {
