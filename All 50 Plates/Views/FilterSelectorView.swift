@@ -12,16 +12,30 @@ struct FilterSelectorView: View {
 
     var body: some View {
         ViewBackground(color: Color.appDark) {
-            Picker("Plates", selection: $model.filterState) {
-                Text("All Plates").tag(ListFilterState.allPlates)
-                Text("Left to Find").tag(ListFilterState.notFound)
-                Text("Found").tag(ListFilterState.found)
-            }
-            .padding(4.0)
-            .font(Font.appControl).foregroundColor(.green)
-            .colorMultiply(Color("AccentColor"))
-            .background(Color.appDark)
-            .pickerStyle(SegmentedPickerStyle())
+            SegmentsView([ListFilterState.allPlates.displayText,
+                          ListFilterState.notFound.displayText,
+                          ListFilterState.found.displayText],
+                         selectedIndex: Binding<Int>(
+                            get: { model.filterState.rawValue },
+                            set: { newValue in model.filterState = ListFilterState(rawValue: newValue) ?? .allPlates }
+                         ),
+                         backgroundColor: .appLight,
+                         selectedBackgroundColor: .accentColor,
+                         textColor: .appGray,
+                         selectedTextColor: .appDark,
+                         font: .appControl)
+            .frame(height: 32)
+            .padding()
+//            Picker("Plates", selection: $model.filterState) {
+//                Text("All Plates").tag(ListFilterState.allPlates)
+//                Text("Left to Find").tag(ListFilterState.notFound)
+//                Text("Found").tag(ListFilterState.found)
+//            }
+//            .padding(4.0)
+//            .font(Font.appControl).foregroundColor(.green)
+//            .colorMultiply(Color("AccentColor"))
+//            .background(Color.appDark)
+//            .pickerStyle(SegmentedPickerStyle())
         }
     }
     
@@ -60,8 +74,6 @@ struct FilterSelectorView: View {
 struct RemainingPlatesView_Previews: PreviewProvider {    
     static var previews: some View {
         VStack {
-            FilterSelectorView().environmentObject(AppModel(dataStore: MockDataStore()))
-            FilterSelectorView().environmentObject(AppModel(dataStore: MockDataStore()))
             FilterSelectorView().environmentObject(AppModel(dataStore: MockDataStore()))
         }
     }

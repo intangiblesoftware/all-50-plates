@@ -29,6 +29,7 @@
 		7845FD262A48BE1F007C2027 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7845FD252A48BE1F007C2027 /* Colors.xcassets */; };
 		7845FD282A48C3DF007C2027 /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7845FD272A48C3DF007C2027 /* FontUtils.swift */; };
 		7845FD2A2A48C763007C2027 /* HapticUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7845FD292A48C763007C2027 /* HapticUtils.swift */; };
+		78D564952A6D3D260037C7C2 /* SegmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D564942A6D3D260037C7C2 /* SegmentsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		7845FD252A48BE1F007C2027 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		7845FD272A48C3DF007C2027 /* FontUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
 		7845FD292A48C763007C2027 /* HapticUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticUtils.swift; sourceTree = "<group>"; };
+		78D564942A6D3D260037C7C2 /* SegmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 			children = (
 				7845FD1C2A48AF6D007C2027 /* ViewBackground.swift */,
 				7845FD1E2A48B02A007C2027 /* VScrollView.swift */,
+				78D564942A6D3D260037C7C2 /* SegmentsView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				7845FD2A2A48C763007C2027 /* HapticUtils.swift in Sources */,
 				387A068A27E93DA4009443CB /* AppModel.swift in Sources */,
 				7845FD282A48C3DF007C2027 /* FontUtils.swift in Sources */,
+				78D564952A6D3D260037C7C2 /* SegmentsView.swift in Sources */,
 				387A068E27E9442D009443CB /* MockDataStore.swift in Sources */,
 				38FB93FE26E429BC0057F367 /* All_50_PlatesApp.swift in Sources */,
 				7845FD1D2A48AF6D007C2027 /* ViewBackground.swift in Sources */,
