@@ -26,16 +26,6 @@ struct FilterSelectorView: View {
                          font: .appControl)
             .frame(height: 32)
             .padding()
-//            Picker("Plates", selection: $model.filterState) {
-//                Text("All Plates").tag(ListFilterState.allPlates)
-//                Text("Left to Find").tag(ListFilterState.notFound)
-//                Text("Found").tag(ListFilterState.found)
-//            }
-//            .padding(4.0)
-//            .font(Font.appControl).foregroundColor(.green)
-//            .colorMultiply(Color("AccentColor"))
-//            .background(Color.appDark)
-//            .pickerStyle(SegmentedPickerStyle())
         }
     }
     
