@@ -8,10 +8,21 @@
 import Foundation
 import Combine
 
-enum ListFilterState: String {
-    case allPlates = "allPlates"
-    case found = "found"
-    case notFound = "notFound"
+enum ListFilterState: Int {
+    case allPlates
+    case found
+    case notFound
+    
+    var displayText: String {
+        switch self {
+        case .allPlates:
+            return "All Plates"
+        case .found:
+            return "Found"
+        case .notFound:
+            return "Not Found"
+        }
+    }
 }
 
 class AppModel: ObservableObject {
@@ -45,7 +56,7 @@ class AppModel: ObservableObject {
             filterState = .notFound
         } else {
             // Initialize to all plates if we don't have a user default
-            if let listFilterStateRawValue = userDefaults.object(forKey: Key.UserDefaults.listState) as? String {
+            if let listFilterStateRawValue = userDefaults.object(forKey: Key.UserDefaults.listState) as? Int {
                 filterState = ListFilterState(rawValue: listFilterStateRawValue) ?? .allPlates
             } else {
                 filterState = .allPlates
