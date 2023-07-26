@@ -13,8 +13,8 @@ struct FilterSelectorView: View {
     var body: some View {
         ViewBackground(color: Color.appDark) {
             SegmentsView([ListFilterState.allPlates.displayText,
-                          ListFilterState.notFound.displayText,
-                          ListFilterState.found.displayText],
+                          ListFilterState.found.displayText,
+                          ListFilterState.notFound.displayText],
                          selectedIndex: Binding<Int>(
                             get: { model.filterState.rawValue },
                             set: { newValue in model.filterState = ListFilterState(rawValue: newValue) ?? .allPlates }
@@ -27,38 +27,7 @@ struct FilterSelectorView: View {
             .frame(height: 32)
             .padding()
         }
-    }
-    
-    /*
-    func message() -> String {
-        var message = ""
-        let numberFound = numberOfPlates - numberRemaining
-        
-        switch platesToView {
-        case .allPlates:
-            switch numberRemaining {
-            case 0: message = "You found them all! Congratulations!"
-            case 1: message = "You have one plate left to find."
-            default: message = "You have \(numberRemaining) license plates left to find."
-            }
-
-        case .found:
-            switch numberRemaining {
-            case 0: message = "You found all \(numberOfPlates) plates! Congratulations!"
-            case numberOfPlates: message = "You haven't found any so far."
-            default: message = "You found \(numberFound) so far."
-            }
-
-        case .notFound:
-            switch numberRemaining {
-            case 0: message = "You found them all! Congratulations!"
-            case 1: message = "You have one plate left to find."
-            default: message = "You have \(numberRemaining) license plates left to find."
-            }
-        }
-        return message
-    }
-     */
+    }    
 }
 
 struct RemainingPlatesView_Previews: PreviewProvider {    

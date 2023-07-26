@@ -123,7 +123,7 @@ class AppModel: ObservableObject {
         refreshDisplayedPlates()
     }
     
-    public func moveToBackground() {
+    public func saveState() {
         self.dataStore.store(plates: self.allPlates)
     }
 }

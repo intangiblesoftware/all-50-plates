@@ -11,9 +11,9 @@ import UIKit
 @main
 struct All_50_PlatesApp: App {
     @Environment (\.scenePhase) var scenePhase
-        
+    
     @StateObject var appModel = AppModel(dataStore: DataStore())
-
+    
     var body: some Scene {
         
         WindowGroup {
@@ -21,18 +21,15 @@ struct All_50_PlatesApp: App {
         }
         .onChange(of: scenePhase) { newPhase in
             switch newPhase {
-            case .active:
-                // Don't need to do anything here.
-                break
-            case .background:
-                // Don't need to do anything here either.
-                break
-            case .inactive:
-                // Let the app model know we're moving to the backgroud
-                appModel.moveToBackground()
-                break
-            default:
-                print("Wow, some new scenePhase was introduced. Not sure what to do here now...")
+                case .active:
+                    // Don't need to do anything here.
+                    break
+                case .background, .inactive:
+                    // Let the app model know we're moving to the backgroud
+                    appModel.saveState()
+                    break
+                default:
+                    appModel.saveState()
             }
         }
     }

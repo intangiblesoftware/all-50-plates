@@ -28,12 +28,10 @@ struct LicensePlateModel: CustomDebugStringConvertible, Codable, Identifiable {
     }
     
     var dateDisplay: String {
-        var dateDisplay = ""
-        guard let dateFound = date else {
-            return dateDisplay
-        }
-        guard let isoDate = ISO8601DateFormatter().date(from: dateFound) else {
-            return dateDisplay
+        guard let dateFound = date,
+              let isoDate = ISO8601DateFormatter().date(from: dateFound) else
+        {
+            return ""
         }
         return isoDate.formatted(date: .long, time: .omitted)
     }

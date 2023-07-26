@@ -14,31 +14,33 @@ struct LicensePlateView: View {
     let plateModel: LicensePlateModel
     
     var body: some View {
+        ViewBackground() {
             HStack {
-                Image(plateModel.plate)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 125)
-                    .cornerRadius(6.0)
-                    .opacity(plateModel.found ? 0.5 : 1.0)
-                Spacer()
-                Text(plateModel.dateDisplay)
-                    .font(.appText)
-                    .foregroundColor(Color.appSubtext)
-                Spacer()
-                Image(systemName: plateModel.found ? "checkmark.circle.fill" : "checkmark.circle")
-                    .resizable()
-                    .foregroundColor(plateModel.found ? Color("AccentColor") : Color.appSubtext)
-                    .frame(width: 36, height: 36)
-            }
-            .padding([.horizontal])
-            .padding([.vertical], 8.0)
-            .background(Color.appCardBackground).clipShape(RoundedRectangle(cornerRadius: 16.0))
-            .frame(maxWidth: .infinity)
-            .overlay(
-                RoundedRectangle(cornerRadius: 16.0)
-                    .stroke(lineWidth: 1.0)
+                    Image(plateModel.plate)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 125)
+                        .cornerRadius(6.0)
+                        .opacity(plateModel.found ? 0.5 : 1.0)
+                    Spacer()
+                    Text(plateModel.dateDisplay)
+                        .font(.appText)
+                        .foregroundColor(Color.appSubtext)
+                    Spacer()
+                    Image(systemName: plateModel.found ? "checkmark.circle.fill" : "checkmark.circle")
+                        .resizable()
+                        .foregroundColor(plateModel.found ? Color("AccentColor") : Color.appSubtext)
+                        .frame(width: 36, height: 36)
+                }
+                .padding([.horizontal])
+                .padding([.vertical], 8.0)
+                .background(Color.appCardBackground).clipShape(RoundedRectangle(cornerRadius: 16.0))
+                .frame(maxWidth: .infinity)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16.0)
+                        .stroke(lineWidth: 1.0)
                     .foregroundColor(plateModel.found ? Color.accentColor : .appSubtext))
+        }
     }
     
     func foundDateString(_ date: Date?) -> String {

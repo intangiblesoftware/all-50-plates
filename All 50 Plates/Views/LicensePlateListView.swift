@@ -14,24 +14,30 @@ struct LicensePlateListView: View {
     private var impact = UIImpactFeedbackGenerator(style: .light)
     
     var body: some View {
-        ViewBackground(color: .red) {
+        ViewBackground(color: .appBackground) {
             VStack(spacing: 0) {
                 AppHeaderView().frame(maxWidth: .infinity, maxHeight: 72.0)
                 GameProgressView().frame(maxWidth: .infinity, maxHeight: 72.0)
-                List (model.displayedPlates) { licensePlateModel in
-                    Button {
-                        impact.impactOccurred()
-                        withAnimation {
-                            model.tapped(plate: licensePlateModel)
-                        }
-                    } label: {
-                        LicensePlateView(plateModel: licensePlateModel)
+                if model.displayedPlates.count == 0 {
+                    EmptyListView(filterState: model.filterState).frame(maxHeight: .infinity)
+                } else {
+                    List (model.displayedPlates) { licensePlateModel in
+                        Button {
+                            impact.impactOccurred()
+                            withAnimation {
+                                model.tapped(plate: licensePlateModel)
+                            }
+                        } label: {
+                            LicensePlateView(plateModel: licensePlateModel)
+                                .listRowSeparator(.hidden)
+                        }.buttonStyle(MyButtonStyle())
+                            .listRowInsets(EdgeInsets(top: 12, leading: 16, bottom: 0, trailing: 16))
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.appBackground)
-                    }.buttonStyle(MyButtonStyle()).listRowSeparator(.hidden)
+                    }
+                    .scrollContentBackground(.hidden)
+                    .listStyle(.plain)
                 }
-                .scrollContentBackground(.hidden)
-                .listStyle(.plain)
                 FilterSelectorView()
                     .frame(maxWidth: .infinity, maxHeight: 72.0)
             }
@@ -46,13 +52,6 @@ struct MyButtonStyle: ButtonStyle
 {
     func makeBody(configuration: Configuration) -> some View
     {
-        if(configuration.isPressed)
-        {
-        }
-        else
-        {
-        }
-        
         return configuration.label
             .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
