@@ -19,18 +19,9 @@ struct All_50_PlatesApp: App {
         WindowGroup {
             LicensePlateListView().environmentObject(appModel)
         }
-        .onChange(of: scenePhase) { newPhase in
-            switch newPhase {
-                case .active:
-                    // Don't need to do anything here.
-                    break
-                case .background, .inactive:
-                    // Let the app model know we're moving to the backgroud
-                    appModel.saveState()
-                    break
-                default:
-                    appModel.saveState()
-            }
+        .onChange(of: scenePhase) { _ in
+            // Let the app model know we're moving to the backgroud
+            appModel.saveState()
         }
     }
 }
