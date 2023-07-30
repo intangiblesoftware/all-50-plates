@@ -63,31 +63,40 @@ struct EmptyListView: View {
     let filterState: ListFilterState
     var body: some View {
         ZStack {
-            switch filterState {
-                case .allPlates:
-                    // TODO: Need a better message - this would happen if there were no data
-                    Text("Uh, oh. Something went really wrong.")
-                case .found:
-                    Image(systemName: "magnifyingglass")
-                        .resizable()
-                        .padding(16)
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(Color("AccentColor"))
-                case .notFound:
-                    Image(systemName: "party.popper.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(Color("AccentColor"))
-                        .padding()
+            VStack(spacing: 0) {
+                Spacer()
+                Image(systemName: filterState.emptyImage)
+                    .resizable()
+                    .frame(width: 64, height: 64)
+                    .foregroundColor(.appSubtext)
+                    .padding(.bottom, 16)
+                Text(filterState.emptyTitle)
+                    .foregroundColor(.appSubtext)
+                    .font(.appWarningTitle)
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom, 3)
+                Text(filterState.emptyMessage)
+                    .foregroundColor(.appSubtext)
+                    .font(.appWarningMessage)
+                    .multilineTextAlignment(.center)
+                Spacer()
             }
+            .padding()
         }
     }
 }
 
 struct StatePlateListView_Previews: PreviewProvider {
     static var previews: some View {
-        LicensePlateListView()
-            .environmentObject(AppModel(dataStore: MockDataStore()))
+        Group {
+            LicensePlateListView()
+                .environmentObject(AppModel(dataStore: MockDataStore()))
+                .previewDisplayName("List View")
+            EmptyListView(filterState: .found)
+                .previewDisplayName("Empty Found View")
+            EmptyListView(filterState: .notFound)
+                .previewDisplayName("Empty Not Found View")
+        }
     }
 }
 
