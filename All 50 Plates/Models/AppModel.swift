@@ -8,23 +8,6 @@
 import Foundation
 import Combine
 
-enum ListFilterState: Int {
-    case allPlates
-    case found
-    case notFound
-    
-    var displayText: String {
-        switch self {
-        case .allPlates:
-            return "All Plates"
-        case .found:
-            return "Found"
-        case .notFound:
-            return "Not Found"
-        }
-    }
-}
-
 class AppModel: ObservableObject {
     
     private let dataStore: LicensePlateStoreProtocol
