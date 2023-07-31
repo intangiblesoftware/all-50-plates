@@ -54,7 +54,7 @@ extension ListFilterState {
         case .found:
             return "You haven't found any plates yet."
         case .notFound:
-            return "You've found all the plates!"
+            return "You found all the plates!"
         }
     }
 }

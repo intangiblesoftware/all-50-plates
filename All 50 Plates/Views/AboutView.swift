@@ -64,7 +64,7 @@ struct AboutView: View {
                 Text("This will reset the game back to the beginning, unfinding all your found license plates.").font(.appParagraph).foregroundColor(.appText).multilineTextAlignment(.center).frame(maxWidth: 275)
                 Spacer()
 #if DEBUG
-                renderDeveloperTools()
+//                renderDeveloperTools()
 #endif
                 
             }.sheet(isPresented: $developerToolsShowing) {
