@@ -9,79 +9,93 @@ import SwiftUI
 
 struct LicensePlateListView: View {
     // Watches the model for changes to the list
-    @ObservedObject var model: AppModel
+    @EnvironmentObject var model: AppModel
     
-    // A purely local state variable to track whether the reset alert is showing.
-    @State private var settingsSheetIsShowing: Bool = false
-    
-    init(model: AppModel) {
-        self.model = model
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(named: "MainText") ?? .label]
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(named: "MainText") ?? .label]        
-    }
+    private var impact = UIImpactFeedbackGenerator(style: .light)
     
     var body: some View {
-        NavigationStack {
-            List (model.displayedPlates) { licensePlateModel in
-                LicensePlateView(plateModel: licensePlateModel, appModel: model)
-                    .listRowSeparator(.hidden)
-            }.listStyle(.plain)
-                .navigationTitle(Text("All 50 Plates"))
-                .toolbar {
-                    Button {
-                        settingsSheetIsShowing = true;
-                    } label: {
-                        Image(systemName: "gear").foregroundColor(Color("ButtonColor")).imageScale(.large).fontWeight(.bold)
+        ViewBackground(color: .appBackground) {
+            VStack(spacing: 0) {
+                AppHeaderView().frame(maxWidth: .infinity, maxHeight: 72.0)
+                GameProgressView().frame(maxWidth: .infinity, maxHeight: 72.0)
+                if model.displayedPlates.count == 0 {
+                    EmptyListView(filterState: model.filterState).frame(maxHeight: .infinity)
+                } else {
+                    List (model.displayedPlates) { licensePlateModel in
+                        Button {
+                            impact.impactOccurred()
+                            withAnimation {
+                                model.tapped(plate: licensePlateModel)
+                            }
+                        } label: {
+                            LicensePlateView(plateModel: licensePlateModel)
+                                .listRowSeparator(.hidden)
+                        }.buttonStyle(MyButtonStyle())
+                            .listRowInsets(EdgeInsets(top: 12, leading: 16, bottom: 0, trailing: 16))
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.appBackground)
                     }
-                    
+                    .scrollContentBackground(.hidden)
+                    .listStyle(.plain)
                 }
-                .overlay(Group {
-                    if model.displayedPlates.isEmpty {
-                        EmptyView(filterState: model.filterState)
-                    }
-                })
-                .sheet(isPresented: $settingsSheetIsShowing) {
-                    SettingsView(model: model, isShowing: $settingsSheetIsShowing)
-                }
-            RemainingPlatesView(numberOfPlates: model.totalPlates,
-                                numberRemaining: model.numberRemaining,
-                                platesToView: $model.filterState)
-            .padding(.bottom, 24.0)
-        }
-    }
-}
-
-struct EmptyView: View {
-    let filterState: ListFilterState
-    var body: some View {
-        ZStack {
-            switch filterState {
-                case .allPlates:
-                    // TODO: Need a better message - this would happen if there were no data
-                    Text("Uh, oh. Something went really wrong.")
-                case .found:
-                    Image(systemName: "magnifyingglass")
-                        .resizable()
-                        .padding(16)
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(Color("AccentColor"), Color("ButtonColor"))
-                case .notFound:
-                    Image(systemName: "party.popper.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(Color("AccentColor"), Color("ButtonColor"))
-                        .padding()
+                FilterSelectorView()
+                    .frame(maxWidth: .infinity, maxHeight: 72.0)
+            }
+            .sheet(isPresented: $model.aboutIsShowing) {
+                AboutView()
             }
         }
     }
 }
 
+struct MyButtonStyle: ButtonStyle
+{
+    func makeBody(configuration: Configuration) -> some View
+    {
+        return configuration.label
+            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+    }
+}
+
+
+struct EmptyListView: View {
+    let filterState: ListFilterState
+    var body: some View {
+        ZStack {
+            VStack(spacing: 0) {
+                Spacer()
+                Image(systemName: filterState.emptyImage)
+                    .resizable()
+                    .frame(width: 64, height: 64)
+                    .foregroundColor(.appSubtext)
+                    .padding(.bottom, 16)
+                Text(filterState.emptyTitle)
+                    .foregroundColor(.appSubtext)
+                    .font(.appWarningTitle)
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom, 3)
+                Text(filterState.emptyMessage)
+                    .foregroundColor(.appSubtext)
+                    .font(.appWarningMessage)
+                    .multilineTextAlignment(.center)
+                Spacer()
+            }
+            .padding()
+        }
+    }
+}
+
 struct StatePlateListView_Previews: PreviewProvider {
-    static let appModel: AppModel = AppModel(dataStore: MockDataStore())
     static var previews: some View {
         Group {
-            LicensePlateListView(model: appModel).preferredColorScheme(.light)
-            LicensePlateListView(model: appModel).preferredColorScheme(.dark)
+            LicensePlateListView()
+                .environmentObject(AppModel(dataStore: MockDataStore()))
+                .previewDisplayName("List View")
+            EmptyListView(filterState: .found)
+                .previewDisplayName("Empty Found View")
+            EmptyListView(filterState: .notFound)
+                .previewDisplayName("Empty Not Found View")
         }
     }
 }

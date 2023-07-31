@@ -8,12 +8,6 @@
 import Foundation
 import Combine
 
-enum ListFilterState: String {
-    case allPlates = "allPlates"
-    case found = "found"
-    case notFound = "notFound"
-}
-
 class AppModel: ObservableObject {
     
     private let dataStore: LicensePlateStoreProtocol
@@ -30,6 +24,7 @@ class AppModel: ObservableObject {
             userDefaults.set(filterState.rawValue, forKey: Key.UserDefaults.listState)
         }
     }
+    @Published var aboutIsShowing: Bool = false
 
     init(dataStore: LicensePlateStoreProtocol) {
         self.dataStore = dataStore
@@ -44,7 +39,7 @@ class AppModel: ObservableObject {
             filterState = .notFound
         } else {
             // Initialize to all plates if we don't have a user default
-            if let listFilterStateRawValue = userDefaults.object(forKey: Key.UserDefaults.listState) as? String {
+            if let listFilterStateRawValue = userDefaults.object(forKey: Key.UserDefaults.listState) as? Int {
                 filterState = ListFilterState(rawValue: listFilterStateRawValue) ?? .allPlates
             } else {
                 filterState = .allPlates
@@ -111,7 +106,7 @@ class AppModel: ObservableObject {
         refreshDisplayedPlates()
     }
     
-    public func moveToBackground() {
+    public func saveState() {
         self.dataStore.store(plates: self.allPlates)
     }
 }

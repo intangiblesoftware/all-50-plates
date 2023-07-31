@@ -27,6 +27,15 @@ struct LicensePlateModel: CustomDebugStringConvertible, Codable, Identifiable {
         plate
     }
     
+    var dateDisplay: String {
+        guard let dateFound = date,
+              let isoDate = ISO8601DateFormatter().date(from: dateFound) else
+        {
+            return ""
+        }
+        return isoDate.formatted(date: .long, time: .omitted)
+    }
+    
     // MARK: - Codable
     enum CodingKeys: String, CodingKey {
         case state
