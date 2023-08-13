@@ -14,5 +14,6 @@ extension Color {
     static let appBackground = Color("AppBackground")
     static let appCardBackground = Color("AppCardBackground")
     static let appText = Color("AppText")
+    static let appButtonText = Color("AppButtonText")
     static let appSubtext = Color("AppSubtext")
 }

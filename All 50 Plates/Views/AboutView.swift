@@ -10,6 +10,8 @@ import SwiftUI
 struct AboutView: View {
     @EnvironmentObject var model: AppModel
     
+    let appVersion: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String? ?? "x.y.z"
+    
     @State var developerToolsShowing: Bool = false
     @State var resetAlertIsShowing: Bool = false
     
@@ -28,11 +30,11 @@ struct AboutView: View {
                 VStack {
                     ScrollView {
                         List {
-                            AboutListCell(title: "Version", value: "1.2.0")
+                            AboutListCell(title: "Version", value: appVersion)
                             AboutListCell(title: "Author", value: "Jim Dabrowski")
                             AboutListCell(title: "Design", value: "Eric Ziegler")
-                        }.scrollContentBackground(.hidden)
-                            .frame(width: .infinity, height: 200)
+                        }.frame(height: 200).scrollContentBackground(.hidden)
+                            
                         Text("Copyright © 2023").font(.appParagraph)
                         HStack {
                             CompanyView(imageName: "intangibleLogo",
@@ -51,9 +53,12 @@ struct AboutView: View {
                 Button {
                     resetAlertIsShowing = true
                 } label: {
-                    Text("Reset Game").font(.appAction).textCase(.uppercase).foregroundColor(.appText)
-                }.frame(width: 275.0, height: 55.0)
-                    .background(Color("AccentColor"))
+                    Text("Reset Game")
+                        .font(.appAction)
+                        .textCase(.uppercase)
+                        .foregroundColor(.appButtonText)
+                        .frame(width: 275.0, height: 55.0)
+                }.background(Color("AccentColor"))
                     .clipShape(RoundedRectangle(cornerRadius: 16.0, style: .circular))
                     .alert("Are you sure you want to reset your game?", isPresented: $resetAlertIsShowing) {
                         Button("Reset", role: .destructive) {
