@@ -99,7 +99,7 @@ class AppModel: ObservableObject {
     }
     
     public func tapped(plate: LicensePlateModel) {
-        let plateTapped = LicensePlateModel(state: plate.state, plate: plate.plate, found: !plate.found, date: !plate.found ? Date().ISO8601Format() : nil)
+        let plateTapped = LicensePlateModel(state: plate.state, plate: plate.plate, found: !plate.found, date: !plate.found ? Date().ISO8601Format() : "")
         allPlates.removeAll { $0.plate == plate.plate }
         allPlates.append(plateTapped)
         updateCounts()
